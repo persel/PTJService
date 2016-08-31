@@ -19,7 +19,6 @@ namespace Organisation
                 .UseStartup<Startup>()
                 .Build();
 
-            //add text here test from Visual Studio git..
             host.Run();
         }
     }
