@@ -3,43 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Organisation.BusinessService;
 using Organisation.Model;
 using Organisation.BusinessService.Interfaces;
-using Organisation.BusinessService;
-using PTJ.Message;
 
+// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Organisation.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class OrgController : Controller
     {
-       
         private ModelContext db;
         private IBackend backend;
 
-        public ValuesController(ModelContext context)
+        public OrgController()
         {
-            db = context;
+            //db = context;
             backend = new BackendCode();
         }
-
-        // GET api/values
+        // GET: api/values
         [HttpGet]
-        public Response<Person> Get()
+        public IEnumerable<string> Get()
         {
-            //var person = db.Person.First();
-            Response<Person> r = new Response<Person>();
-            List<Person> li = new List<Person>();
-            Person p = backend.GetById(123124);
-            li.Add(new Person());
-
-            r.limit = 10;
-            r.message = "Ok";
-            r.success = "true";
-            r.result = li;
-
-            return r;// new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
