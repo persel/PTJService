@@ -20,6 +20,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Organisation", "src\Organis
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PTJ.Message", "src\PTJ.Message\PTJ.Message.xproj", "{ED4FAB7A-C07D-41A6-877D-46BE9A3D18D1}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PTJ.Base.BusinessRules", "src\PTJ.Base.BusinessRules\PTJ.Base.BusinessRules.xproj", "{FD3E2620-DA4D-4EEE-8128-14C48A6044CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{ED4FAB7A-C07D-41A6-877D-46BE9A3D18D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED4FAB7A-C07D-41A6-877D-46BE9A3D18D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED4FAB7A-C07D-41A6-877D-46BE9A3D18D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3E2620-DA4D-4EEE-8128-14C48A6044CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3E2620-DA4D-4EEE-8128-14C48A6044CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3E2620-DA4D-4EEE-8128-14C48A6044CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3E2620-DA4D-4EEE-8128-14C48A6044CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +58,6 @@ Global
 		{54F39287-AC3A-4150-9ED2-77EA805183DD} = {3B94EB84-D0EB-465F-9F49-DA16C4345DF1}
 		{47B5905A-5AF5-4FBF-BEE1-A5DCA36A4A57} = {54F39287-AC3A-4150-9ED2-77EA805183DD}
 		{ED4FAB7A-C07D-41A6-877D-46BE9A3D18D1} = {3B94EB84-D0EB-465F-9F49-DA16C4345DF1}
+		{FD3E2620-DA4D-4EEE-8128-14C48A6044CB} = {3B94EB84-D0EB-465F-9F49-DA16C4345DF1}
 	EndGlobalSection
 EndGlobal
