@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Organisation.BusinessService;
 using Organisation.Model;
 using Organisation.BusinessService.Interfaces;
+using PTJ.DataLayer;
+using PTJ.Message;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,19 +19,30 @@ namespace Organisation.Controllers
         private ModelContext db;
         private IBackend backend;
 
-        public OrgController()
+        public OrgController(ModelContext context)
         {
-            //db = context;
-            backend = new BackendCode();
+            db = context;
+            backend = new BackendCode(db);
         }
-        // GET: api/values
+        // GET: api/org
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Response<Person> Get()
         {
-            return new string[] { "value1", "value2" };
+            //var person = db.Person.First();
+            Response<Person> r = new Response<Person>();
+            List<Person> li = new List<Person>();
+            Person p = backend.GetById(123124);
+            li.Add(p);
+
+            r.limit = 10;
+            r.message = "Ok";
+            r.success = "true";
+            r.result = li;
+
+            return r;
         }
 
-        // GET api/values/5
+        // GET api/org/5
         [HttpGet("{id}")]
         public string Get(int id)
         {

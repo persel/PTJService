@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using PTJ.DataLayer;
 
 namespace Organisation.Model
 {
@@ -9,10 +9,10 @@ namespace Organisation.Model
             : base(options)
         { }
 
-        public DbSet<Person> Person { get; set; }
-        //public DbSet<Adress> Adress { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
+        public DbSet<Adress> Adress { get; set; }
 
-        //public DbSet<PersonAdress> PersonAdress { get; set; }
+        public DbSet<PersonAdress> PersonAdress { get; set; }
     }
 
   

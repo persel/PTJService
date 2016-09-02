@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Organisation.Model;
+using PTJ.DataLayer;
 
 namespace Organisation.BusinessService
 {
@@ -14,15 +15,15 @@ namespace Organisation.BusinessService
         private ModelContext db;
 
 
-        public BackendCode()//ModelContext db1)
+        public BackendCode( ModelContext db1)
         {
-            //db = ModelContext;// db1;
+            db = db1;
         }
 
         public Person GetById(long persnr)
         {
             //ModelContext db = new ModelContext();
-            return new Person();// db.Person.First();
+            return db.Person.First();
         }
 
     }
