@@ -9,6 +9,7 @@ namespace PTJ.DataLayer
     {
         public Class1()
         {
+
         }
     }
 }
