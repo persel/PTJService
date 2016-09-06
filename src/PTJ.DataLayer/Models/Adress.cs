@@ -21,11 +21,11 @@ namespace PTJ.DataLayer.Models
         public long Id { get; set; }
 
         //[Column("AdressTyp_FKID")]
-        //[ForeignKey("Id")]
+        [ForeignKey("Id")]
         public long AdressTypFkid { get; set; }
 
         //[Column("AdressVariant_FKID")]
-        //[ForeignKey("Id")]
+        [ForeignKey("Id")]
         public int AdressVariantFkid { get; set; }
 
         public DateTime SkapadDatum { get; set; }

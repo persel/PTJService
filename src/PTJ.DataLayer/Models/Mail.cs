@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTJ.DataLayer.Models
-{ 
+{
+    [Table("Mail", Schema = "Adress")]
     public partial class Mail
     {
         [Key]

@@ -8,12 +8,14 @@ namespace PTJ.DataLayer.Models
     [Table("AdressVariant", Schema = "Adress")]
     public partial class AdressVariant
     {
-        public AdressVariant()
-        {
-            Adress = new HashSet<Adress>();
-        }
+        //public AdressVariant()
+        //{
+        //    Adress = new HashSet<Adress>();
+        //}
         [Key]
         public long Id { get; set; }
+
+        [ForeignKey("Id")]
         public long AdressTypFkid { get; set; }
         public string Variant { get; set; }
         public DateTime SkapadDatum { get; set; }

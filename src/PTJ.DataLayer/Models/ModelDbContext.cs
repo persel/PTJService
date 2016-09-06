@@ -54,54 +54,54 @@ namespace PTJ.DataLayer.Models
                     .HasConstraintName("FK_Adress_AdressVariant");
             });
 
-            //modelBuilder.Entity<AdressTyp>(entity =>
-            //{
-            //    entity.ToTable("AdressTyp", "Adress");
+            modelBuilder.Entity<AdressTyp>(entity =>
+            {
+                entity.ToTable("AdressTyp", "Adress");
 
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-            //    entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
+                entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
 
-            //    entity.Property(e => e.Typ)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
+                entity.Property(e => e.Typ)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-            //    entity.Property(e => e.UpdateradAv)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
+                entity.Property(e => e.UpdateradAv)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
-            //    entity.Property(e => e.UpdateradDatum).HasColumnType("datetime");
-            //});
+                entity.Property(e => e.UpdateradDatum).HasColumnType("datetime");
+            });
 
-            //modelBuilder.Entity<AdressVariant>(entity =>
-            //{
-            //    entity.ToTable("AdressVariant", "Adress");
+            modelBuilder.Entity<AdressVariant>(entity =>
+            {
+                entity.ToTable("AdressVariant", "Adress");
 
-            //    entity.HasIndex(e => e.AdressTypFkid)
-            //        .HasName("IXFK_AdressVariant_AdressTyp");
+                entity.HasIndex(e => e.AdressTypFkid)
+                    .HasName("IXFK_AdressVariant_AdressTyp");
 
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
-            //    entity.Property(e => e.AdressTypFkid).HasColumnName("AdressTyp_FKID");
+                entity.Property(e => e.AdressTypFkid).HasColumnName("AdressTyp_FKID");
 
-            //    entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
+                entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
 
-            //    entity.Property(e => e.UpdateradAv)
-            //        .IsRequired()
-            //        .HasMaxLength(100);
+                entity.Property(e => e.UpdateradAv)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
-            //    entity.Property(e => e.UpdateradDatum).HasColumnType("datetime");
+                entity.Property(e => e.UpdateradDatum).HasColumnType("datetime");
 
-            //    entity.Property(e => e.Variant)
-            //        .IsRequired()
-            //        .HasMaxLength(255);
+                entity.Property(e => e.Variant)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
-            //    entity.HasOne(d => d.AdressTypFk)
-            //        .WithMany(p => p.AdressVariant)
-            //        .HasForeignKey(d => d.AdressTypFkid)
-            //        .OnDelete(DeleteBehavior.Restrict)
-            //        .HasConstraintName("FK_AdressVariant_AdressTyp");
-            //});
+                entity.HasOne(d => d.AdressTypFk)
+                    .WithMany(p => p.AdressVariant)
+                    .HasForeignKey(d => d.AdressTypFkid)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_AdressVariant_AdressTyp");
+            });
 
             //modelBuilder.Entity<GatuAdress>(entity =>
             //{

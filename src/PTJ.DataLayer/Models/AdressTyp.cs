@@ -8,11 +8,11 @@ namespace PTJ.DataLayer.Models
     [Table("AdressTyp", Schema = "Adress")]
     public partial class AdressTyp
     {
-        public AdressTyp()
-        {
-            Adress = new HashSet<Adress>();
-            AdressVariant = new HashSet<AdressVariant>();
-        }
+        //public AdressTyp()
+        //{
+        //    Adress = new HashSet<Adress>();
+        //    AdressVariant = new HashSet<AdressVariant>();
+        //}
         [Key]
         public long Id { get; set; }
         public string Typ { get; set; }
