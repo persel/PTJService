@@ -21,12 +21,12 @@ namespace PTJ.DataLayer.Models
         public long Id { get; set; }
 
         //[Column("AdressTyp_FKID")]
-        [ForeignKey("Id")]
+        [ForeignKey("AdressTyp.Id")]
         public long AdressTypFkid { get; set; }
 
         //[Column("AdressVariant_FKID")]
-        [ForeignKey("Id")]
-        public int AdressVariantFkid { get; set; }
+        [ForeignKey(" AdressVariant.Id")]
+        public long AdressVariantFkid { get; set; }
 
         public DateTime SkapadDatum { get; set; }
 
@@ -38,8 +38,8 @@ namespace PTJ.DataLayer.Models
         //public virtual ICollection<Mail> Mail { get; set; }
         ////public virtual ICollection<OrganisationAdress> OrganisationAdress { get; set; }
         //public virtual ICollection<PersonAdress> PersonAdress { get; set; }
-        //public virtual ICollection<Telefon> Telefon { get; set; }
-        public virtual AdressTyp AdressTypFk { get; set; }
-        public virtual AdressVariant AdressVariantFk { get; set; }
+        ////public virtual ICollection<Telefon> Telefon { get; set; }
+        //public virtual AdressTyp AdressTypFk { get; set; }
+        //public virtual AdressVariant AdressVariantFk { get; set; }
     }
 }

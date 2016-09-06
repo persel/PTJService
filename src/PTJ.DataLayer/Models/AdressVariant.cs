@@ -22,7 +22,7 @@ namespace PTJ.DataLayer.Models
         public DateTime? UpdateradDatum { get; set; }
         public string UpdateradAv { get; set; }
 
-        public virtual ICollection<Adress> Adress { get; set; }
-        public virtual AdressTyp AdressTypFk { get; set; }
+        //public virtual ICollection<Adress> Adress { get; set; }
+        //public virtual AdressTyp AdressTypFk { get; set; }
     }
 }
