@@ -1,31 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace PTJ.DataLayer
+namespace UserService.Models
 {
-    public class Organisation
+    public partial class Organisation
     {
-        [Required]
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public Organisation()
+        {
+            OrganisationAdress = new HashSet<OrganisationAdress>();
+        }
 
-        [Required]
-        [MaxLength(50)]
+        public long Id { get; set; }
         public string OrganisationsId { get; set; }
-
-        [Required]
         public DateTime SkapadDatum { get; set; }
-
-        public DateTime UpDateradDatum { get; set; }
-
-        [MaxLength(100)]
+        public DateTime? UpDateradDatum { get; set; }
         public string UpdateradAv { get; set; }
+        public int? IngarIorganisation { get; set; }
 
-        public int IngarIOrganisation { get; set; }
+        public virtual ICollection<OrganisationAdress> OrganisationAdress { get; set; }
+        public virtual Organisation IngarIorganisationNavigation { get; set; }
+        public virtual ICollection<Organisation> InverseIngarIorganisationNavigation { get; set; }
     }
 }
