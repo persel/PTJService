@@ -6,6 +6,7 @@ namespace UserService.Models
     public partial class Mail
     {
         public long Id { get; set; }
+
         public long AdressFkid { get; set; }
         public string MailAdress { get; set; }
         public DateTime SkapadDatum { get; set; }
