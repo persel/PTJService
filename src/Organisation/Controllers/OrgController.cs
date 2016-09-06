@@ -29,6 +29,17 @@ namespace Organisation.Controllers
         public Response<Person> Get()
         {
             //var person = db.Person.First();
+            //
+            /*if ( IsAuthorised() )
+               getMaxId()
+               CanICreate(child,parent)
+               CanIDelete(child,parent)
+               CanIUpdate(child,parent)
+               doParentEntityExist()
+             */
+
+
+
             Response<Person> r = new Response<Person>();
             List<Person> li = new List<Person>();
             Person p = backend.GetById(123124);
