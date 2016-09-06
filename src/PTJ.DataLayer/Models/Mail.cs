@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace PTJ.DataLayer.Models
+{ 
     public partial class Mail
     {
         public long Id { get; set; }

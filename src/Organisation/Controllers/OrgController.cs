@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Organisation.BusinessService;
 using Organisation.Model;
 using Organisation.BusinessService.Interfaces;
-using PTJ.DataLayer;
+using PTJ.DataLayer.Models;
 using PTJ.Message;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860

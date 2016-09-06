@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Organisation.Model;
-using PTJ.DataLayer;
+using PTJ.DataLayer.Models;
 
 namespace Organisation.BusinessService
 {

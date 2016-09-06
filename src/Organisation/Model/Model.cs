@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PTJ.DataLayer;
+using PTJ.DataLayer.Models;
 
 namespace Organisation.Model
 {
