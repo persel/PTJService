@@ -19,10 +19,12 @@ namespace AdressSvc.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            var t = db.Person.First();
-            return new string[] { "value1", "value2" };
+            var t = (from a in db.Adress
+                     where a.UpdateradAv == "PTJ/pnr"
+                     select a).ToList();
+            return "";
         }
 
         // GET api/values/5

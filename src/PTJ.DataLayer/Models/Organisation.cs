@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PTJ.DataLayer.Models
 {
@@ -9,7 +10,7 @@ namespace PTJ.DataLayer.Models
         {
             OrganisationAdress = new HashSet<OrganisationAdress>();
         }
-
+        [Key]
         public long Id { get; set; }
         public string OrganisationsId { get; set; }
         public DateTime SkapadDatum { get; set; }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PTJ.DataLayer.Models
 {
     public partial class GatuAdress
     {
+        [Key]
         public long Id { get; set; }
         public long AdressFkid { get; set; }
         public string AdressRad1 { get; set; }

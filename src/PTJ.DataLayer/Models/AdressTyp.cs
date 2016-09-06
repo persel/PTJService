@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTJ.DataLayer.Models
 {
+    [Table("AdressTyp", Schema = "Adress")]
     public partial class AdressTyp
     {
         public AdressTyp()
@@ -10,7 +13,7 @@ namespace PTJ.DataLayer.Models
             Adress = new HashSet<Adress>();
             AdressVariant = new HashSet<AdressVariant>();
         }
-
+        [Key]
         public long Id { get; set; }
         public string Typ { get; set; }
         public DateTime SkapadDatum { get; set; }

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PTJ.DataLayer.Models
 {
+    [Table("AdressVariant", Schema = "Adress")]
     public partial class AdressVariant
     {
         public AdressVariant()
         {
             Adress = new HashSet<Adress>();
         }
-
+        [Key]
         public long Id { get; set; }
         public long AdressTypFkid { get; set; }
         public string Variant { get; set; }
