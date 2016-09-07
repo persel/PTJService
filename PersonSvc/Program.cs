@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 
-namespace Person
+namespace PersonSvc
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
