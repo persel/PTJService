@@ -9,7 +9,7 @@ namespace PTJ.DataLayer.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            // To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=ds1ptjsql03;Database=PTJ_Operational_Db;Trusted_Connection=True;");
+            //optionsBuilder.UseSqlServer(@"Server=ds1ptjsql03;Database=PTJ_Operational_Db;Trusted_Connection=True;");
         }
         public ModelDbContext(DbContextOptions<ModelDbContext> options)
             : base(options)
