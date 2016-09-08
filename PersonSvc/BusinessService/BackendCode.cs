@@ -80,34 +80,34 @@ namespace PersonSvc.BusinessService
 
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            throw new NotImplementedException();
-            //Response r = new Response();
+            //throw new NotImplementedException();
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
 
-            ////var test = db.Person.ToList();
-            //var persnrStr = persnr.ToString();
+            //var test = db.Person.ToList();
+            var persnrStr = persnr.ToString();
 
-            //var personDb = (from p in db.Person
-            //                where p.PersonNummer == persnrStr
-            //                select p).FirstOrDefault<Person>();
+            var personDb = (from p in db.Person
+                            where p.PersonNummer == persnrStr
+                            select p).FirstOrDefault<Person>();
 
-            //PersonViewModel model = new PersonViewModel();
-            //List<PersonViewModel> persList = new List<PersonViewModel>();
+            PersonViewModel model = new PersonViewModel();
+            List<PersonViewModel> persList = new List<PersonViewModel>();
 
-            //model.Person = personDb;
-            //model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
-            //model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
-            //model.PersonKonsult = GetPersonKonsult(personDb.Id);
-            //model.PersonPatient = GetPersonPatient(personDb.Id);
-            //model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
-            //persList.Add(model);
+            model.Person = personDb;
+            model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
+            model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
+            model.PersonKonsult = GetPersonKonsult(personDb.Id);
+            model.PersonPatient = GetPersonPatient(personDb.Id);
+            model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
+            persList.Add(model);
 
 
-            //r.success = "true";
-            //r.message = "all ok";
-            //r.total = persList.Count();
-            //r.result = persList;
+            r.success = "true";
+            r.message = "all ok";
+            r.total = persList.Count();
+            r.result = persList;
 
-            //return r;
+            return r;
         }
 
 
@@ -288,13 +288,13 @@ namespace PersonSvc.BusinessService
 
         public PersonSjukHalsovardsPersonal GetPersonSjukHalsovardsPersonal(long personsId)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
-            //var HKPerson = (from p in db.PersonSjukHalsovardsPersonal
-            //                     where p.PersonFkid == personsId
-            //                     select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
+            var HKPerson = (from p in db.PersonSjukHalsovardsPersonal
+                            where p.PersonFkid == personsId
+                            select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
 
-            //return HKPerson;
+            return HKPerson;
         }
 
         public long GetNewDbId()

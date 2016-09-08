@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PTJ.DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonSvc
 {
@@ -29,6 +30,7 @@ namespace PersonSvc
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddDbContext<ModelDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));           
             services.AddMvc();
         }
 

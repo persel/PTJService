@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PTJ.DataLayer.Models;
+using PTJ.Message;
+using PersonSvc.BusinessService;
+using PersonSvc.BusinessService.Interfaces;
 
 namespace PersonSvc.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/[controller]/[action]")]
+    public class PersonController : Controller
     {
+        private IBackend backend;
+        private ModelDbContext db;
+
+        public PersonController(ModelDbContext context)
+        {
+            db = context;
+            backend = new BackendCode(db);
+        }
+
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -21,6 +35,13 @@ namespace PersonSvc.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        [HttpGet("{persnr}")]
+        public Response<PersonViewModel> GetByPersnr(long persnr)
+        {
+            //Response resp = backend.GetByPersnr(persnr);
+            return backend.GetByPersnr(persnr);
         }
 
         // POST api/values

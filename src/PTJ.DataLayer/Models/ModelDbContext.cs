@@ -502,7 +502,7 @@ namespace PTJ.DataLayer.Models
         public virtual DbSet<PersonAnstalld> PersonAnstalld { get; set; }
         public virtual DbSet<PersonKonsult> PersonKonsult { get; set; }
         public virtual DbSet<PersonPatient> PersonPatient { get; set; }
-        //public virtual DbSet<PersonSjukHälsovårdsPersonal> PersonSjukHälsovårdsPersonal { get; set; }
+        public virtual DbSet<PersonSjukHalsovardsPersonal> PersonSjukHalsovardsPersonal { get; set; }
         public virtual DbSet<Telefon> Telefon { get; set; }
     }
 
