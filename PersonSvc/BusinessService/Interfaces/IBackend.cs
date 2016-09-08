@@ -16,7 +16,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         //Response UpdatePerson(PersonViewModel model);
 
-        //Response InsertPerson(PersonViewModel model);        
+        Response<PersonViewModel> InsertPerson(PersonViewModel model);        
 
         //Response CreatePerson(Person person);
 
@@ -24,7 +24,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         bool CanISeThis(string username);
 
-        long GetNewDbId();
+        long GetNewDbId(string tableName);
         PersonAnnanPerson GetPersonAnnanPerson(long personsId);
 
         PersonAnstalld  GetPersonAnstalld(long personsId);

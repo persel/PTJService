@@ -50,11 +50,30 @@ namespace PersonSvc.Controllers
         {
         }
 
+        // POST api/values
+        [HttpPost]
+        public Response<PersonViewModel> InsertPers([FromBody] PersonViewModel model)
+        {
+            Response<PersonViewModel> result = new Response<PersonViewModel>();
+            if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn) )
+            {
+                result = backend.InsertPerson(model);
+            }
+            else
+            {
+                result.success = "false";
+                result.message = "Missing parameters, check: Id, Persnr,  Fname, Lname, Username";
+                result.errorcode = 600;
+            }
+            return result;
+        }
+
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
+
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

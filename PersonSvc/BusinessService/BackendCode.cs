@@ -131,121 +131,154 @@ namespace PersonSvc.BusinessService
         //                                where p.Id == model.Person.Id
         //                                select p).FirstOrDefault<Person>();
 
-        //                personDb.Fname = model.Person.Fname;
-        //                personDb.Lname = model.Person.Lname;
-        //                personDb.Username = model.Person.Username;
-        //                personDb.Persnr = model.Person.Persnr;
-        //                db.SaveChanges();
+            //                personDb.Fname = model.Person.Fname;
+            //                personDb.Lname = model.Person.Lname;
+            //                personDb.Username = model.Person.Username;
+            //                personDb.Persnr = model.Person.Persnr;
+            //                db.SaveChanges();
 
-        //                //Save persons adresses
-        //                foreach (var adress in model.AdressList)
-        //                {
-        //                    //get connectobj
-        //                    var personAdr = (from pa in db.PersonAdress
-        //                                     where pa.PersonId == model.Person.Id
-        //                                     select pa).FirstOrDefault<PersonAdress>();
+            //                //Save persons adresses
+            //                foreach (var adress in model.AdressList)
+            //                {
+            //                    //get connectobj
+            //                    var personAdr = (from pa in db.PersonAdress
+            //                                     where pa.PersonId == model.Person.Id
+            //                                     select pa).FirstOrDefault<PersonAdress>();
 
-        //                    if (personAdr != null)
-        //                    {
-        //                        var adressToUpdate = (from a in db.Adress
-        //                                              where a.Id == personAdr.AdressId
-        //                                              select a).FirstOrDefault<Adress>();
+            //                    if (personAdr != null)
+            //                    {
+            //                        var adressToUpdate = (from a in db.Adress
+            //                                              where a.Id == personAdr.AdressId
+            //                                              select a).FirstOrDefault<Adress>();
 
-        //                        //Testa rollback med fel adressId
-        //                        //var adressToUpdate = (from a in db.Adress
-        //                        //                      where a.Id == 22
-        //                        //                      select a).FirstOrDefault<Adress>();
+            //                        //Testa rollback med fel adressId
+            //                        //var adressToUpdate = (from a in db.Adress
+            //                        //                      where a.Id == 22
+            //                        //                      select a).FirstOrDefault<Adress>();
 
-        //                        adressToUpdate.Gata = adress.Gata;
-        //                        adressToUpdate.Postnummer = adress.Postnummer;
-        //                        adressToUpdate.Ort = adress.Ort;
-        //                        adressToUpdate.Type = adress.Type;
-        //                        db.SaveChanges();
-        //                    }
-        //                }
-        //                // Commit transaction if all commands succeed, transaction will auto-rollback
-        //                // when disposed if either commands fails
-        //                transaction.Commit();
-        //                r.success = "true";
-        //                r.message = "all ok";
-        //                r.total = 0;
-        //            }
-        //            catch (Exception)
-        //            {
-        //                //Handle failure
-        //                r.success = "false";
-        //                r.message = "error";
-        //                r.total = 0;
-        //            }
-        //        }
-        //    }
+            //                        adressToUpdate.Gata = adress.Gata;
+            //                        adressToUpdate.Postnummer = adress.Postnummer;
+            //                        adressToUpdate.Ort = adress.Ort;
+            //                        adressToUpdate.Type = adress.Type;
+            //                        db.SaveChanges();
+            //                    }
+            //                }
+            //                // Commit transaction if all commands succeed, transaction will auto-rollback
+            //                // when disposed if either commands fails
+            //                transaction.Commit();
+            //                r.success = "true";
+            //                r.message = "all ok";
+            //                r.total = 0;
+            //            }
+            //            catch (Exception)
+            //            {
+            //                //Handle failure
+            //                r.success = "false";
+            //                r.message = "error";
+            //                r.total = 0;
+            //            }
+            //        }
+            //    }
 
-        //    return r;
-        //}
+            //    return r;
+            //}
 
-        //public Response<PersonViewModel>       
-            
-        //    InsertPerson(PersonViewModel model)
-        //{
-        //    Response r = new Response();
-        //    List<PersonViewModel> persList = new List<PersonViewModel>();
+                 
 
-        //    using (db)
-        //    {
-        //        using (var transaction = db.Database.BeginTransaction())
-        //        {
-        //            try
-        //            {
-        //                //var personsDb = db.Person.Where(p => p.Persnr == model.Person.Persnr).ToList();
+        public Response<PersonViewModel> InsertPerson(PersonViewModel model)
+        {
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            List<PersonViewModel> persList = new List<PersonViewModel>();
 
-        //                var allreadyExist = (from p in db.Person
-        //                                     where p.Persnr == model.Person.Persnr
-        //                                     select p.Persnr).FirstOrDefault();
+            using (db)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var allreadyExist = (from p in db.Person
+                                             where p.PersonNummer == model.Person.PersonNummer
+                                             select p.PersonNummer).FirstOrDefault();
 
-        //                if (allreadyExist == 0)
-        //                {
-        //                    db.Person.Add(model.Person);
-        //                    db.SaveChanges();
+                        if (String.IsNullOrEmpty(allreadyExist))
+                        {
+                            model.Person.Id = GetNewDbId("Person");
+                            model.Person.SkapadDatum = DateTime.Now;
+                            model.Person.UppdateradDatum = DateTime.Now;
+                            model.Person.UppdateradAv = "mah";
+                            db.Person.Add(model.Person);
+                            db.SaveChanges();
 
-        //                    //Get id 
-        //                    var dbPersonId = model.Person.Id;
+                            //Get id 
+                            var dbPersonId = model.Person.Id;
 
-        //                    //Save adresses
-        //                    foreach (var adress in model.AdressList)
-        //                    {
-        //                        db.Adress.Add(adress);
-        //                        db.SaveChanges();
-        //                        var dbAdressId = adress.Id;
-        //                        //Save connection
-        //                        PersonAdress persAdr = new PersonAdress();
-        //                        persAdr.PersonId = dbPersonId;
-        //                        //Testa rollback med fel personid
-        //                        //persAdr.PersonId = 22;
-        //                        persAdr.AdressId = dbAdressId;
-        //                        db.PersonAdress.Add(persAdr);
-        //                        db.SaveChanges();
-        //                    }
-        //                }                        
+                            //Save person type
+                            if (model.PersonAnnanPerson != null)
+                            {
+                                model.PersonAnnanPerson.PersonFkid = model.Person.Id;
+                                model.PersonAnnanPerson.Id = GetNewDbId("PersonAnnanPerson");
+                                model.PersonAnnanPerson.SkapadDatum = DateTime.Now;
+                                model.PersonAnnanPerson.UpdateradDatum= DateTime.Now;
+                                db.PersonAnnanPerson.Add(model.PersonAnnanPerson);
+                                db.SaveChanges();
+                            }
+                            else if (model.PersonAnstalld != null)
+                            {
+                                model.PersonAnstalld.PersonFkid = model.Person.Id;
+                                model.PersonAnstalld.Id = GetNewDbId("PersonAnstalld");
+                                model.PersonAnstalld.SkapadDatum = DateTime.Now;
+                                model.PersonAnstalld.UpdateradDatum = DateTime.Now;
+                                db.PersonAnstalld.Add(model.PersonAnstalld);
+                                db.SaveChanges();
+                            }
+                            else if (model.PersonKonsult != null)
+                            {
+                                model.PersonKonsult.PersonFkid = model.Person.Id;
+                                model.PersonKonsult.Id = GetNewDbId("PersonKonsult");
+                                model.PersonKonsult.SkapadDatum = DateTime.Now;
+                                model.PersonKonsult.UpdateradDatum = DateTime.Now;
+                                db.PersonKonsult.Add(model.PersonKonsult);
+                                db.SaveChanges();
+                            }
+                            else if (model.PersonPatient != null)
+                            {
+                                model.PersonPatient.PersonFkid = model.Person.Id;
+                                model.PersonPatient.Id = GetNewDbId("PersonPatient");
+                                model.PersonPatient.SkapadDatum = DateTime.Now;
+                                model.PersonPatient.UpdateradDatum = DateTime.Now;
+                                db.PersonPatient.Add(model.PersonPatient);
+                                db.SaveChanges();
+                            }
+                            else if (model.PersonSjukHalsovardsPersonal != null)
+                            {
+                                model.PersonSjukHalsovardsPersonal.PersonFkid = model.Person.Id;
+                                model.PersonSjukHalsovardsPersonal.Id = GetNewDbId("PersonSjukHalsovardsPersonal");
+                                model.PersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
+                                model.PersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
+                                db.PersonSjukHalsovardsPersonal.Add(model.PersonSjukHalsovardsPersonal);
+                                db.SaveChanges();
+                            }
+                        }
 
-        //                // Commit transaction if all commands succeed, transaction will auto-rollback
-        //                // when disposed if either commands fails
-        //                transaction.Commit();
-        //                r.success = "true";
-        //                r.message = "all ok";
-        //                r.total = 0;
-        //            }
-        //            catch (Exception)
-        //            {
-        //                //Handle failure
-        //                r.success = "false";
-        //                r.message = "error";
-        //                r.total = 0;
-        //            }
-        //        }
-        //    }
+                        // Commit transaction if all commands succeed, transaction will auto-rollback
+                        // when disposed if either commands fails
+                        transaction.Commit();
+                        r.success = "true";
+                        r.message = "all ok";
+                        r.total = 0;
+                    }
+                    catch (Exception)
+                    {
+                        //Handle failure
+                        r.success = "false";
+                        r.message = "error";
+                        r.total = 0;
+                    }
+                }
+            }
 
-        //    return r;
-        //}
+            return r;
+        }
 
         public PersonAnnanPerson GetPersonAnnanPerson(long personsId)
         {
@@ -297,12 +330,32 @@ namespace PersonSvc.BusinessService
             return HKPerson;
         }
 
-        public long GetNewDbId()
+        public long GetNewDbId(string tableName)
         {
-            long Id = 1;
-            if (db.Person.Count() != 0)
+            long Id = 0;
+
+            switch (tableName)
             {
-                Id = db.Person.Select(s => s.Id).Max() + 1;                
+                case "Person":
+                    Id = db.Person.Select(s => s.Id).Max() + 1;
+                    break;
+                case "PersonAnnanPerson":
+                    Id = db.PersonAnnanPerson.Select(s => s.Id).Max() + 1;
+                    break;
+                case "PersonAnstalld":
+                    Id = db.PersonAnstalld.Select(s => s.Id).Max() + 1;
+                    break;
+                case "PersonKonsult":
+                    Id = db.PersonKonsult.Select(s => s.Id).Max() + 1;
+                    break;
+                case "PersonPatient":
+                    Id = db.PersonPatient.Select(s => s.Id).Max() + 1;
+                    break;
+                case "PersonSjukHalsovardsPersonal":
+                    Id = db.PersonSjukHalsovardsPersonal.Select(s => s.Id).Max() + 1;
+                    break;
+                default:
+                    break;
             }
             return Id;
         }
