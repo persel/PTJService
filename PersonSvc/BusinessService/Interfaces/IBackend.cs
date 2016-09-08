@@ -14,7 +14,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         Response<PersonViewModel> AddPerson(Person person);
 
-        //Response UpdatePerson(PersonViewModel model);
+        Response<PersonViewModel> UpdatePerson(PersonViewModel model);
 
         Response<PersonViewModel> InsertPerson(PersonViewModel model);        
 

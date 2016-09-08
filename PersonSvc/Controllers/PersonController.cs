@@ -74,6 +74,23 @@ namespace PersonSvc.Controllers
         {
         }
 
+        [HttpPut]
+        public Response<PersonViewModel> UpdatePers([FromBody] PersonViewModel model)
+        {
+            Response<PersonViewModel> result = new Response<PersonViewModel>();
+            if (model.Person.Id != 0 && !String.IsNullOrEmpty(model.Person.PersonNummer) && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
+            {
+                result = backend.UpdatePerson(model);
+            }
+            else
+            {
+                result.success = "false";
+                result.message = "Missing parameters, check: Id, Persnr,  Fname, Lname, Username";
+                result.errorcode = 600;
+            }
+            return result;
+        }
+
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
