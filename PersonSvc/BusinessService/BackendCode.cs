@@ -289,6 +289,7 @@ namespace PersonSvc.BusinessService
         public PersonSjukHalsovardsPersonal GetPersonSjukHalsovardsPersonal(long personsId)
         {
             throw new NotImplementedException();
+
             //var HKPerson = (from p in db.PersonSjukHalsovardsPersonal
             //                     where p.PersonFkid == personsId
             //                     select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
