@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using PTJ.DataLayer.Models;
+using System.Collections.Generic;
 
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace PTJ.DataLayer.Models
+namespace PTJ.Base.BusinessRules.ViewModels
 {
     public class PersonViewModel 
     {

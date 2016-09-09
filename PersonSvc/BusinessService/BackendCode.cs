@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using PersonSvc.BusinessService.Interfaces;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
+using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.Code;
 
 namespace PersonSvc.BusinessService
 {
@@ -12,9 +14,11 @@ namespace PersonSvc.BusinessService
     {
         //private dastabaseContext db;
         private ModelDbContext db;
+        PersonCode pc;
         public BackendCode(ModelDbContext _db)
         {
             db = _db;
+            pc = new PersonCode(db);
         }
 
         public bool CanISeThis(string username)
@@ -32,29 +36,7 @@ namespace PersonSvc.BusinessService
             throw new NotImplementedException();
         }
 
-        //public Response GetByAlias(string alias)
-        //{
-        //    var test = db.Person.Where(p => p.Username == alias).ToList();
-        //    Response r = new Response();
-        //    PersonViewModel model = new PersonViewModel();
-        //    List<PersonViewModel> persList = new List<PersonViewModel>();
-
-        //    r.success = "true";
-        //    r.message = "all ok";
-        //    r.total = test.Count();
-
-        //    foreach (var person in test)
-        //    {
-        //        model.Person = person;
-        //        persList.Add(model);
-        //    }
-            
-        //    r.result = persList;
-
-        //    return r;
-        //}
-
-
+    
         public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
             throw new NotImplementedException();
@@ -80,34 +62,7 @@ namespace PersonSvc.BusinessService
 
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            //throw new NotImplementedException();
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
-
-            //var test = db.Person.ToList();
-            var persnrStr = persnr.ToString();
-
-            var personDb = (from p in db.Person
-                            where p.PersonNummer == persnrStr
-                            select p).FirstOrDefault<Person>();
-
-            PersonViewModel model = new PersonViewModel();
-            List<PersonViewModel> persList = new List<PersonViewModel>();
-
-            model.Person = personDb;
-            model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
-            model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
-            model.PersonKonsult = GetPersonKonsult(personDb.Id);
-            model.PersonPatient = GetPersonPatient(personDb.Id);
-            model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
-            persList.Add(model);
-
-
-            r.success = "true";
-            r.message = "all ok";
-            r.total = persList.Count();
-            r.result = persList;
-
-            return r;
+            return pc.GetByPersnr(persnr);
         }
 
 

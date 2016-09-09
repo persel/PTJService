@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PTJ.Base.BusinessRules.Interfaces
 {
-    public interface Validation
+    public interface IValidation
     {
         bool canICreate(string child, string parent );
 
