@@ -7,6 +7,7 @@ using PTJ.DataLayer.Models;
 using PTJ.Message;
 using PersonSvc.BusinessService;
 using PersonSvc.BusinessService.Interfaces;
+using PTJ.Base.BusinessRules.ViewModels;
 
 namespace PersonSvc.Controllers
 {

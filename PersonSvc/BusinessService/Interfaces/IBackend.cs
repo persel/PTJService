@@ -1,4 +1,5 @@
-﻿using PTJ.DataLayer.Models;
+﻿using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.DataLayer.Models;
 using PTJ.Message;
 
 
