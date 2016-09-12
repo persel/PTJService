@@ -7,9 +7,35 @@ using System.Threading.Tasks;
 
 namespace PTJ.Base.BusinessRules.Interfaces
 {
-    interface IPerson
+    public interface IPerson
     {
-        Response<PersonViewModel> GetByPersnr(long persnr);
+     
+        Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
+
+        Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+
+        /* *
+         * Employee Or Consult
+         * */
+        Response<PersonAdressViewModel> GetEmployeeByPersnr(long persnr);
+
+        Response<PersonAdressViewModel> GetConsultByPersnr(long persnr);
+
+        Response<PersonAdressViewModel> GetEmployeeOrConsultByPersnr(long persnr);
+
+        Response<PersonAdressViewModel> GetEmployeeByOrgnr(long orgnr);
+
+        Response<PersonAdressViewModel> GetConsultByOrgnr(long orgnr);
+
+        Response<PersonAdressViewModel> GetEmployeeAndConsultByOrgnr(long orgnr);
+
+        /* *
+         * Patient
+         * */
+
+        Response<PersonAdressViewModel> GetPatientByPersnr(long persnr);
+
+        Response<PersonAdressViewModel> GetPatientByOrgnr(long orgnr);
 
     }
 }

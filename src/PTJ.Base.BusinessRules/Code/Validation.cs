@@ -8,7 +8,7 @@ namespace PTJ.Base.BusinessRules.Code
 {
     public class Validation : IValidation
     {
-        public bool canICreate(string child, string parent)
+        public bool canICreate(string childId, string parentId)
         {
             throw new NotImplementedException();
         }

@@ -16,6 +16,12 @@ namespace PTJ.Base.BusinessRules.Code
         {
             db = _db;
         }
+
+        public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
+        {
+            throw new NotImplementedException();
+        }
+
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
             //throw new NotImplementedException();
@@ -46,6 +52,51 @@ namespace PTJ.Base.BusinessRules.Code
             r.result = persList;
 
             return r;
+        }
+
+        public Response<PersonAdressViewModel> GetConsultByOrgnr(long orgnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetConsultByPersnr(long persnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetEmployeeAndConsultByOrgnr(long orgnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetEmployeeByOrgnr(long orgnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetEmployeeByPersnr(long persnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetEmployeeOrConsultByPersnr(long persnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetPatientByOrgnr(long orgnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetPatientByPersnr(long persnr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        {
+            throw new NotImplementedException();
         }
     }
 }
