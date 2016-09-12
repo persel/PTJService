@@ -13,6 +13,8 @@ namespace PersonSvc.BusinessService.Interfaces
 
         Response<PersonViewModel> GetByPersnr(long persnr);
 
+        Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+
         Response<PersonViewModel> AddPerson(Person person);
 
         Response<PersonViewModel> UpdatePerson(PersonViewModel model);

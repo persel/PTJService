@@ -64,7 +64,7 @@ namespace PersonSvc.BusinessService
 
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            return pc.GetByPersnr(persnr);
+            return pc.GetPersonByPersnr(persnr);
         }
 
 
@@ -315,34 +315,11 @@ namespace PersonSvc.BusinessService
             return HKPerson;
         }
 
-        //public long GetNewDbId(string tableName)
-        //{
-        //    long Id = 0;
+        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        {
+            //throw new NotImplementedException();
+            return pc.GetPersonAdressByPersnr(persnr);
+        }
 
-        //    switch (tableName)
-        //    {
-        //        case "Person":
-        //            Id = db.Person.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        case "PersonAnnanPerson":
-        //            Id = db.PersonAnnanPerson.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        case "PersonAnstalld":
-        //            Id = db.PersonAnstalld.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        case "PersonKonsult":
-        //            Id = db.PersonKonsult.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        case "PersonPatient":
-        //            Id = db.PersonPatient.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        case "PersonSjukHalsovardsPersonal":
-        //            Id = db.PersonSjukHalsovardsPersonal.Select(s => s.Id).Max() + 1;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return Id;
-        //}
     }
 }

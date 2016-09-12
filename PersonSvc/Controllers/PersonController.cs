@@ -8,6 +8,8 @@ using PTJ.Message;
 using PersonSvc.BusinessService;
 using PersonSvc.BusinessService.Interfaces;
 using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.Code;
+using PTJ.Base.BusinessRules.Interfaces;
 
 namespace PersonSvc.Controllers
 {
@@ -43,6 +45,11 @@ namespace PersonSvc.Controllers
         {
             //Response resp = backend.GetByPersnr(persnr);
             return backend.GetByPersnr(persnr);
+        }
+
+        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        {
+            return backend.GetPersonAdressByPersnr(persnr);
         }
 
         // POST api/values
