@@ -8,27 +8,27 @@ namespace PTJ.Base.BusinessRules.Code
 {
     public class Validation : IValidation
     {
-        public bool canICreate(string childId, string parentId)
+        public bool CanICreate(string childId, string parentId)
         {
             throw new NotImplementedException();
         }
 
-        public bool canIDelete(string child, string parent)
+        public bool CanIDelete(string child, string parent)
         {
             throw new NotImplementedException();
         }
 
-        public bool canIUpdate<T>()
+        public bool CanIUpdate<T>()
         {
             throw new NotImplementedException();
         }
 
-        public bool doChildExist(long entityId)
+        public bool DoChildExist(long entityId)
         {
             throw new NotImplementedException();
         }
 
-        public bool doParentEntityExist(long entityId)
+        public bool DoParentEntityExist(long entityId)
         {
             throw new NotImplementedException();
         }
