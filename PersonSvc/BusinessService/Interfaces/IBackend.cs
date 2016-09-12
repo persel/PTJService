@@ -25,7 +25,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         bool CanISeThis(string username);
 
-        long GetNewDbId(string tableName);
+        //long GetNewDbId(string tableName);
         PersonAnnanPerson GetPersonAnnanPerson(long personsId);
 
         PersonAnstalld  GetPersonAnstalld(long personsId);
