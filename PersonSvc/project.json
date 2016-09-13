@@ -1,8 +1,9 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
-      "type": "platform"
+      "type": "platform",
+      "Microsoft.NETCore.Portable.Compatibility": "1.0.1"
     },
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
@@ -16,7 +17,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "PTJ.Message": "1.0.0-*",
     "PTJ.DataLayer": "1.0.0-*",
-    "PTJ.Base.BusinessRules": "1.0.0-*"
+    "PTJ.Base.BusinessRules": "1.0.0-*",
+    "PTJ.Security": "1.0.0-*"
   },
 
   "tools": {

@@ -8,6 +8,7 @@ using PTJ.Message;
 using PersonSvc.BusinessService;
 using PersonSvc.BusinessService.Interfaces;
 using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Security.Code;
 
 namespace PersonSvc.Controllers
 {
@@ -41,6 +42,12 @@ namespace PersonSvc.Controllers
         [HttpGet("{persnr}")]
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
+            Role myRole = new Role();
+            if (myRole.isAdmin())
+            {
+                return backend.GetByPersnr(persnr);
+            }
+           
             //Response resp = backend.GetByPersnr(persnr);
             return backend.GetByPersnr(persnr);
         }
