@@ -22,7 +22,7 @@ namespace PTJ.Base.BusinessRules.Code
             throw new NotImplementedException();
         }
 
-        public Response<PersonViewModel> GetByPersnr(long persnr)
+        public Response<PersonViewModel> GetPersonByPersnr(long persnr)
         {
             //throw new NotImplementedException();
             Response<PersonViewModel> r = new Response<PersonViewModel>();
@@ -96,7 +96,32 @@ namespace PTJ.Base.BusinessRules.Code
 
         public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
         {
-            throw new NotImplementedException();
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+
+            var persnrStr = persnr.ToString();
+
+            var personDb = (from p in db.Person
+                            where p.PersonNummer == persnrStr
+                            select p).FirstOrDefault();
+
+            PersonAdressViewModel model = new PersonAdressViewModel();
+            List<Adress> aList = new List<Adress>();
+
+            model.Person = personDb;
+            //model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
+            //model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
+            //model.PersonKonsult = GetPersonKonsult(personDb.Id);
+            //model.PersonPatient = GetPersonPatient(personDb.Id);
+            //model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
+            //model.Adress.Add(aList);
+
+
+            r.success = "true";
+            r.message = "all ok";
+            r.total = aList.Count();
+            //r.result = aList;
+
+            return r;
         }
     }
 }

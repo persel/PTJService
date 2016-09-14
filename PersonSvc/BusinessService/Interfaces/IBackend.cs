@@ -13,6 +13,8 @@ namespace PersonSvc.BusinessService.Interfaces
 
         Response<PersonViewModel> GetByPersnr(long persnr);
 
+        Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+
         Response<PersonViewModel> AddPerson(Person person);
 
         Response<PersonViewModel> UpdatePerson(PersonViewModel model);
@@ -25,7 +27,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         bool CanISeThis(string username);
 
-        long GetNewDbId(string tableName);
+        //long GetNewDbId(string tableName);
         PersonAnnanPerson GetPersonAnnanPerson(long personsId);
 
         PersonAnstalld  GetPersonAnstalld(long personsId);

@@ -8,7 +8,8 @@ using PTJ.Message;
 using PersonSvc.BusinessService;
 using PersonSvc.BusinessService.Interfaces;
 using PTJ.Base.BusinessRules.ViewModels;
-using PTJ.Security.Code;
+using PTJ.Base.BusinessRules.Code;
+using PTJ.Base.BusinessRules.Interfaces;
 
 namespace PersonSvc.Controllers
 {
@@ -42,14 +43,13 @@ namespace PersonSvc.Controllers
         [HttpGet("{persnr}")]
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            Roles myRole = new Roles();
-            if (myRole.isAdmin())
-            {
-                return backend.GetByPersnr(persnr);
-            }
-           
             //Response resp = backend.GetByPersnr(persnr);
             return backend.GetByPersnr(persnr);
+        }
+
+        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        {
+            return backend.GetPersonAdressByPersnr(persnr);
         }
 
         // POST api/values
@@ -97,6 +97,7 @@ namespace PersonSvc.Controllers
                 result.errorcode = 600;
             }
             return result;
+
         }
 
 

@@ -12,6 +12,8 @@ namespace PTJ.Base.BusinessRules.Interfaces
      
         Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
 
+        Response<PersonViewModel> GetPersonByPersnr(long persnr);
+
         Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
 
         /* *

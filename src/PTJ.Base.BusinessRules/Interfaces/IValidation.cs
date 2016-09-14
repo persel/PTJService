@@ -7,14 +7,14 @@ namespace PTJ.Base.BusinessRules.Interfaces
 {
     public interface IValidation
     {
-        bool canICreate(string child, string parent );
+        bool CanICreate(string child, string parent );
 
-        bool canIDelete(string child, string parent);
+        bool CanIDelete(string child, string parent);
 
-        bool canIUpdate<T>();
+        bool CanIUpdate<T>();
 
-        bool doParentEntityExist(long entityId);
+        bool DoParentEntityExist(long entityId);
 
-        bool doChildExist(long entityId);
+        bool DoChildExist(long entityId);
     }
 }
