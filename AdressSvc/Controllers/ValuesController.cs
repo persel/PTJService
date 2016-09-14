@@ -7,6 +7,14 @@ using PTJ.DataLayer.Models;
 
 namespace AdressSvc.Controllers
 {
+
+    /* *
+       * ASP.NET Web API Help Pages
+       * http://localhost:<random_port>/swagger/ui
+       * http://localhost:<random_port>/swagger/v1/swagger.json
+       * https://docs.asp.net/en/latest/tutorials/web-api-help-pages-using-swagger.html
+    **/
+
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

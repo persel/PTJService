@@ -13,11 +13,19 @@ using PTJ.Base.BusinessRules.Interfaces;
 
 namespace PersonSvc.Controllers
 {
+    /* *
+        * ASP.NET Web API Help Pages
+        * http://localhost:<random_port>/swagger/ui
+        * http://localhost:<random_port>/swagger/v1/swagger.json
+        * https://docs.asp.net/en/latest/tutorials/web-api-help-pages-using-swagger.html
+     **/
+
     [Route("api/[controller]/[action]")]
     public class PersonController : Controller
     {
         private IBackend backend;
         private ModelDbContext db;
+       
 
         public PersonController(ModelDbContext context)
         {
@@ -40,23 +48,23 @@ namespace PersonSvc.Controllers
             return "value";
         }
 
-        [HttpGet("{persnr}")]
-        public Response<PersonViewModel> GetByPersnr(long persnr)
-        {
-            //Response resp = backend.GetByPersnr(persnr);
-            return backend.GetByPersnr(persnr);
-        }
+        //[HttpGet("{persnr}")]
+        //public Response<PersonViewModel> GetByPersnr(long persnr)
+        //{
+        //    //Response resp = backend.GetByPersnr(persnr);
+        //    return backend.GetByPersnr(persnr);
+        //}
 
-        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
-        {
-            return backend.GetPersonAdressByPersnr(persnr);
-        }
+        //public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        //{
+        //    return backend.GetPersonAdressByPersnr(persnr);
+        //}
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST api/values
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
         // POST api/values
         [HttpPost]
@@ -76,11 +84,11 @@ namespace PersonSvc.Controllers
             return result;
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/values/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
         [HttpPut]
         public Response<PersonViewModel> UpdatePers([FromBody] PersonViewModel model)

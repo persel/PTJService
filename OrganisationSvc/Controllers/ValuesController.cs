@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrganisationSvc.Controllers
 {
+    /* *
+       * ASP.NET Web API Help Pages
+       * http://localhost:<random_port>/swagger/ui
+       * http://localhost:<random_port>/swagger/v1/swagger.json
+       * https://docs.asp.net/en/latest/tutorials/web-api-help-pages-using-swagger.html
+    **/
+
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -25,8 +32,8 @@ namespace OrganisationSvc.Controllers
 
         // POST api/values
         [HttpPost]
-        [Produces("application/json")]
-        [Consumes("")]
+        //[Produces("application/json")]
+        //[Consumes("")]
         public void Post([FromBody]string value)
         {
         }

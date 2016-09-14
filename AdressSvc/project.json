@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform",
+      "Microsoft.NETCore.Portable.Compatibility": "1.0.1"
+    },
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
@@ -14,7 +19,7 @@
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
-    "Microsoft.NETCore.App": "1.0.1"
+    "Swashbuckle": "6.0.0-beta902"
   },
 
   "tools": {
