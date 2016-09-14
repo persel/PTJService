@@ -18,7 +18,8 @@
     "PTJ.Message": "1.0.0-*",
     "PTJ.DataLayer": "1.0.0-*",
     "PTJ.Base.BusinessRules": "1.0.0-*",
-    "PTJ.Security": "1.0.0-*"
+    "PTJ.Security": "1.0.0-*",
+    "Swashbuckle": "6.0.0-beta902"
   },
 
   "tools": {
