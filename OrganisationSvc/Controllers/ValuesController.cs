@@ -25,6 +25,8 @@ namespace OrganisationSvc.Controllers
 
         // POST api/values
         [HttpPost]
+        [Produces("application/json")]
+        [Consumes("")]
         public void Post([FromBody]string value)
         {
         }

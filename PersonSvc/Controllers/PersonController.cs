@@ -42,7 +42,7 @@ namespace PersonSvc.Controllers
         [HttpGet("{persnr}")]
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            Role myRole = new Role();
+            Roles myRole = new Roles();
             if (myRole.isAdmin())
             {
                 return backend.GetByPersnr(persnr);

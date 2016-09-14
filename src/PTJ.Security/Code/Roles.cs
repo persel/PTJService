@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PTJ.Security.Code
 {
-    public class Role : IRoles
+    public class Roles : IRoles
     {
 
 
