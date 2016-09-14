@@ -10,9 +10,7 @@
 
 //        public void SetPdpProvider()//string _url, string _username , string _password)
 //        {
-//            string url = "http://ptjppdp.ptj.se:8081/asm-pdp/pdp";// _url;// ConfigurationManager.AppSettings["PdpProvider"];
-//            string userName = "pep-user";// _username;// ConfigurationManager.AppSettings["PepUser"];
-//            string password = "xab7212Y3";// _password;// ConfigurationManager.AppSettings["PepPassword"];
+
 
 //            this.pdpProvider = new Aps5WsPolicyDecisionPointProvider(url, userName, password);
 //        }
