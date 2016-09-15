@@ -33,7 +33,7 @@ namespace OrganisationSvc
             // Add framework services.
             services.AddMvc();
 
-            services.AddSwaggerGen();
+            //services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,10 +45,10 @@ namespace OrganisationSvc
             app.UseMvc();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
-            app.UseSwagger();
+            //app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
-            app.UseSwaggerUi();
+            //// Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            //app.UseSwaggerUi();
         }
     }
 }

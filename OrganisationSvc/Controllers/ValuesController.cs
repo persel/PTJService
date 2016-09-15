@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OrganisationSvc.Model;
+using PTJ.DataLayer.Models;
+using PTJ.Message;
 
 namespace OrganisationSvc.Controllers
 {
@@ -16,11 +19,27 @@ namespace OrganisationSvc.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private ModelDbContext db;
+
+        public ValuesController(ModelDbContext context)
+        {
+            db = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Response<Organisation>  Get()
         {
-            return new string[] { "value1", "value2" };
+            Response<Organisation> re = new Response<Organisation>();
+
+            List<Organisation> _organisation = new List<Organisation>();
+            _organisation = (from o in db.Organisation
+                      where o.IngarIorganisation == 1
+                      select o).ToList();
+
+            re.result = _organisation;
+
+            return re;
         }
 
         // GET api/values/5

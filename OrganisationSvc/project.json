@@ -18,7 +18,9 @@
     "PTJ.Base.BusinessRules": "1.0.0-*",
     "PTJ.DataLayer": "1.0.0-*",
     "PTJ.Message": "1.0.0-*",
-    "Swashbuckle": "6.0.0-beta902"
+    "Swashbuckle": "6.0.0-beta902",
+    "PTJ.Security": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1"
     },
 
     "tools": {
