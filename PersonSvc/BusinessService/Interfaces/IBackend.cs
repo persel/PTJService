@@ -23,7 +23,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         //Response CreatePerson(Person person);
 
-        //Response DeletePerson(long persnr);
+        Response<PersonViewModel> DeletePerson(long persnr);
 
         bool CanISeThis(string username);
 

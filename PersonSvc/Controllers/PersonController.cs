@@ -34,26 +34,26 @@ namespace PersonSvc.Controllers
         }
 
 
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        //[HttpGet("{persnr}")]
-        //public Response<PersonViewModel> GetByPersnr(long persnr)
+        //// GET api/values
+        //[HttpGet]
+        //public IEnumerable<string> Get()
         //{
-        //    //Response resp = backend.GetByPersnr(persnr);
-        //    return backend.GetByPersnr(persnr);
+        //    return new string[] { "value1", "value2" };
         //}
+
+        //// GET api/values/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        [HttpGet("{persnr}")]
+        public Response<PersonViewModel> GetByPersnr(long persnr)
+        {
+            //Response resp = backend.GetByPersnr(persnr);
+            return backend.GetByPersnr(persnr);
+        }
 
         //public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
         //{
@@ -109,10 +109,30 @@ namespace PersonSvc.Controllers
         }
 
 
+        //// DELETE api/values/5
+        //[HttpDelete("{persnr}")]
+        //public void Delete(long persnr)
+        //{
+
+        //}
+
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{persnr}")]
+        public Response<PersonViewModel> Delete(long persnr)
         {
+            Response<PersonViewModel> result = new Response<PersonViewModel>();
+
+            if (persnr != 0)
+            {
+                backend.DeletePerson(persnr);
+            }
+            else
+            {
+                result.success = "false";
+                result.message = "Missing parameters, check: Id, Persnr,  Fname, Lname, Username";
+                result.errorcode = 600;
+            }
+            return result;
         }
     }
 }

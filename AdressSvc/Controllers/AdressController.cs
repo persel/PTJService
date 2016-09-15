@@ -16,11 +16,11 @@ namespace AdressSvc.Controllers
     **/
 
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class AdressController : Controller
     {
         private ModelDbContext db;
 
-        public ValuesController(ModelDbContext context)
+        public AdressController(ModelDbContext context)
         {
             db = context;
         }
