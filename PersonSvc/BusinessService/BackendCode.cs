@@ -35,7 +35,39 @@ namespace PersonSvc.BusinessService
 
         public Response<PersonViewModel> DeletePerson(long persnr)
         {
-            throw new NotImplementedException();
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            using (db)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var personDb = (from p in db.Person
+                                        where p.PersonNummer == persnr.ToString()
+                                        select p).FirstOrDefault();
+                        if (personDb != null)
+                        {
+                            db.Remove(personDb);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            r.success = "false";
+                            r.message = "Kan inte ta bort personen eftersom personen saknas i databasen.";
+                            r.total = 0;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        //Handle failure
+                        r.success = "false";
+                        r.message = e.Message;
+                        r.total = 0;
+                    }
+                }
+            }
+
+            return r;
         }
 
     
