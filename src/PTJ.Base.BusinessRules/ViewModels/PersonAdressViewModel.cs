@@ -8,6 +8,6 @@ namespace PTJ.Base.BusinessRules.ViewModels
     {
         public Person Person { get; set; }
 
-        public List<Adress> Adress { get; set; }
+        public List<AdressViewModel> Adress { get; set; }
     }
 }

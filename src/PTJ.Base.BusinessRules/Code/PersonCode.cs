@@ -12,9 +12,12 @@ namespace PTJ.Base.BusinessRules.Code
     public class PersonCode : IPerson
     {
         private ModelDbContext db;
+        AdressCode ac;
+
         public PersonCode(ModelDbContext _db)
         {
             db = _db;
+            ac = new AdressCode(db);
         }
 
         public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
@@ -105,7 +108,9 @@ namespace PTJ.Base.BusinessRules.Code
                             select p).FirstOrDefault();
 
             PersonAdressViewModel model = new PersonAdressViewModel();
-            List<Adress> aList = new List<Adress>();
+            List<PersonAdressViewModel> paList = new List<PersonAdressViewModel>();
+            AdressViewModel adrModel = new AdressViewModel();
+            List<AdressViewModel> aList = new List<AdressViewModel>();
 
             model.Person = personDb;
             //model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
@@ -115,11 +120,28 @@ namespace PTJ.Base.BusinessRules.Code
             //model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
             //model.Adress.Add(aList);
 
+            //Get adresses
+            List<PersonAdress> adrList = new List<PersonAdress>();
+
+            adrList = (from pa in db.PersonAdress
+                           where pa.PersonFkid == personDb.Id
+                           select pa).ToList();
+
+            foreach (var item in adrList)
+            {
+                var adrvm = ac.GetByAdressId(item.Id);
+                aList.Add(adrvm.result[0]);
+            }
+
+
+            model.Adress = aList;
+
+            paList.Add(model);
 
             r.success = "true";
             r.message = "all ok";
             r.total = aList.Count();
-            //r.result = aList;
+            r.result = paList;
 
             return r;
         }
