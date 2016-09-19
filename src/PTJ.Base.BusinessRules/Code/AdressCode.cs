@@ -17,9 +17,10 @@ namespace PTJ.Base.BusinessRules.Code
             db = _db;
         }
 
-        public Response<AdressViewModel> GetByAdressId(long id)
+        public List<AdressViewModel> GetByAdressId(long id)
         {
-            Response<AdressViewModel> r = new Response<AdressViewModel>();
+            List<AdressViewModel> lst = new List<AdressViewModel>();
+            AdressViewModel model = new AdressViewModel();
 
             var adrDb = (from a in db.Adress
                             where a.Id == id
@@ -27,7 +28,6 @@ namespace PTJ.Base.BusinessRules.Code
 
             if (adrDb != null)
             {
-                AdressViewModel model = new AdressViewModel();
                 model.Adress = adrDb;
 
                 //Check type and get adress
@@ -52,25 +52,11 @@ namespace PTJ.Base.BusinessRules.Code
                                  select v).FirstOrDefault();
 
                 model.Adressvariant = variantDb;
-
-                List<AdressViewModel> adrList = new List<AdressViewModel>();
-                adrList.Add(model);
-
-                r.success = "true";
-                r.message = "all ok";
-                r.total = adrList.Count;
-                r.result = adrList;
-            }
-            else
-            {
-                //Handle failure
-                r.success = "false";
-                r.message = "Ingen adress i databasen för adressid: " + id.ToString();
-                r.total = 0;
             }
 
+            lst.Add(model);
 
-            return r;
+            return lst;
         }
 
         public Mail GetMailAdress(long id)
@@ -103,17 +89,17 @@ namespace PTJ.Base.BusinessRules.Code
             return streetAdrDb;
         }
 
-        public Response<AdressViewModel> GetByPersonId(long id)
+        public List<AdressViewModel> GetByPersonId(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Response<AdressViewModel> GetByType(long id)
+        public List<AdressViewModel> GetByType(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Response<AdressViewModel> GetAllAdressesById(long pId)
+        public List<AdressViewModel> GetAllAdressesById(long pId)
         {
             throw new NotImplementedException();
             //Response<AdressViewModel> r = new Response<AdressViewModel>();

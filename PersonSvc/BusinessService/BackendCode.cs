@@ -16,6 +16,7 @@ namespace PersonSvc.BusinessService
         private ModelDbContext db;
         PersonCode pc;
         DbUtils dbUtils;
+
         public BackendCode(ModelDbContext _db)
         {
             db = _db;
@@ -43,8 +44,8 @@ namespace PersonSvc.BusinessService
                     try
                     {
                         var personDb = (from p in db.Person
-                                        where p.PersonNummer == persnr.ToString()
-                                        select p).FirstOrDefault();
+                            where p.PersonNummer == persnr.ToString()
+                            select p).FirstOrDefault();
                         if (personDb != null)
                         {
                             db.Remove(personDb);
@@ -70,7 +71,7 @@ namespace PersonSvc.BusinessService
             return r;
         }
 
-    
+
         public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
             throw new NotImplementedException();
@@ -96,7 +97,24 @@ namespace PersonSvc.BusinessService
 
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            return pc.GetPersonByPersnr(persnr);
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
+
+            try
+            {
+                r.result = pc.GetPersonByPersnr(persnr);
+                r.success = "true";
+                r.message = "all ok";
+                r.total = r.result.Count();
+            }
+            catch (Exception e)
+            {
+                //Handle failure
+                r.success = "false";
+                r.message = e.Message;
+                r.total = 0;
+            }
+
+            return r;
         }
 
 
@@ -117,8 +135,8 @@ namespace PersonSvc.BusinessService
                     try
                     {
                         var personDb = (from p in db.Person
-                                        where p.Id == model.Person.Id
-                                        select p).FirstOrDefault();
+                            where p.Id == model.Person.Id
+                            select p).FirstOrDefault();
 
                         personDb.ForNamn = model.Person.ForNamn;
                         personDb.EfterNamn = model.Person.EfterNamn;
@@ -132,8 +150,8 @@ namespace PersonSvc.BusinessService
                         {
                             //Hämta och uppdatera
                             var annanPersonDb = (from p in db.PersonAnnanPerson
-                                            where p.Id == model.PersonAnnanPerson.Id
-                                            select p).FirstOrDefault();
+                                where p.Id == model.PersonAnnanPerson.Id
+                                select p).FirstOrDefault();
 
                             annanPersonDb.UpdateradDatum = DateTime.Now;
                             db.SaveChanges();
@@ -142,8 +160,8 @@ namespace PersonSvc.BusinessService
                         {
                             //Hämta och uppdatera
                             var anstalldPersonDb = (from p in db.PersonAnstalld
-                                                 where p.Id == model.PersonAnstalld.Id
-                                                 select p).FirstOrDefault();
+                                where p.Id == model.PersonAnstalld.Id
+                                select p).FirstOrDefault();
 
                             anstalldPersonDb.UpdateradDatum = DateTime.Now;
                             db.SaveChanges();
@@ -152,8 +170,8 @@ namespace PersonSvc.BusinessService
                         {
                             //Hämta och uppdatera
                             var konsultPersonDb = (from p in db.PersonKonsult
-                                                   where p.Id == model.PersonKonsult.Id
-                                                    select p).FirstOrDefault();
+                                where p.Id == model.PersonKonsult.Id
+                                select p).FirstOrDefault();
 
                             konsultPersonDb.UpdateradDatum = DateTime.Now;
                             db.SaveChanges();
@@ -162,8 +180,8 @@ namespace PersonSvc.BusinessService
                         {
                             //Hämta och uppdatera
                             var patientPersonDb = (from p in db.PersonPatient
-                                                   where p.Id == model.PersonPatient.Id
-                                                    select p).FirstOrDefault();
+                                where p.Id == model.PersonPatient.Id
+                                select p).FirstOrDefault();
 
                             patientPersonDb.UpdateradDatum = DateTime.Now;
                             db.SaveChanges();
@@ -172,13 +190,13 @@ namespace PersonSvc.BusinessService
                         {
                             //Hämta och uppdatera
                             var HKPersonalPersonDb = (from p in db.PersonSjukHalsovardsPersonal
-                                                   where p.Id == model.PersonSjukHalsovardsPersonal.Id
-                                                   select p).FirstOrDefault();
+                                where p.Id == model.PersonSjukHalsovardsPersonal.Id
+                                select p).FirstOrDefault();
 
                             HKPersonalPersonDb.UpdateradDatum = DateTime.Now;
                             db.SaveChanges();
                         }
-                        
+
                         // Commit transaction if all commands succeed, transaction will auto-rollback
                         // when disposed if either commands fails
                         transaction.Commit();
@@ -213,8 +231,8 @@ namespace PersonSvc.BusinessService
                     try
                     {
                         var allreadyExist = (from p in db.Person
-                                             where p.PersonNummer == model.Person.PersonNummer
-                                             select p.PersonNummer).FirstOrDefault();
+                            where p.PersonNummer == model.Person.PersonNummer
+                            select p.PersonNummer).FirstOrDefault();
 
                         if (String.IsNullOrEmpty(allreadyExist))
                         {
@@ -235,7 +253,7 @@ namespace PersonSvc.BusinessService
                                 model.PersonAnnanPerson.PersonFkid = model.Person.Id;
                                 model.PersonAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
                                 model.PersonAnnanPerson.SkapadDatum = DateTime.Now;
-                                model.PersonAnnanPerson.UpdateradDatum= DateTime.Now;
+                                model.PersonAnnanPerson.UpdateradDatum = DateTime.Now;
                                 db.PersonAnnanPerson.Add(model.PersonAnnanPerson);
                                 db.SaveChanges();
                             }
@@ -269,7 +287,8 @@ namespace PersonSvc.BusinessService
                             else if (model.PersonSjukHalsovardsPersonal != null)
                             {
                                 model.PersonSjukHalsovardsPersonal.PersonFkid = model.Person.Id;
-                                model.PersonSjukHalsovardsPersonal.Id = dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
+                                model.PersonSjukHalsovardsPersonal.Id =
+                                    dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
                                 model.PersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
                                 model.PersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
                                 db.PersonSjukHalsovardsPersonal.Add(model.PersonSjukHalsovardsPersonal);
@@ -301,8 +320,8 @@ namespace PersonSvc.BusinessService
         {
 
             var annanPerson = (from p in db.PersonAnnanPerson
-                                where p.PersonFkid == personsId
-                                select p).FirstOrDefault<PersonAnnanPerson>();
+                where p.PersonFkid == personsId
+                select p).FirstOrDefault<PersonAnnanPerson>();
 
             return annanPerson;
         }
@@ -310,8 +329,8 @@ namespace PersonSvc.BusinessService
         public PersonAnstalld GetPersonAnstalld(long personsId)
         {
             var anstalldPerson = (from a in db.PersonAnstalld
-                                   where a.PersonFkid == personsId
-                                   select a).FirstOrDefault<PersonAnstalld>();
+                where a.PersonFkid == personsId
+                select a).FirstOrDefault<PersonAnstalld>();
 
             return anstalldPerson;
         }
@@ -320,8 +339,8 @@ namespace PersonSvc.BusinessService
         {
 
             var konsultPerson = (from p in db.PersonKonsult
-                                  where p.PersonFkid == personsId
-                                  select p).FirstOrDefault<PersonKonsult>();
+                where p.PersonFkid == personsId
+                select p).FirstOrDefault<PersonKonsult>();
 
             return konsultPerson;
         }
@@ -330,8 +349,8 @@ namespace PersonSvc.BusinessService
         {
 
             var patientPerson = (from p in db.PersonPatient
-                                 where p.PersonFkid == personsId
-                                 select p).FirstOrDefault<PersonPatient>();
+                where p.PersonFkid == personsId
+                select p).FirstOrDefault<PersonPatient>();
 
             return patientPerson;
         }
@@ -341,16 +360,31 @@ namespace PersonSvc.BusinessService
             //throw new NotImplementedException();
 
             var HKPerson = (from p in db.PersonSjukHalsovardsPersonal
-                            where p.PersonFkid == personsId
-                            select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
+                where p.PersonFkid == personsId
+                select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
 
             return HKPerson;
         }
 
         public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
         {
-            //throw new NotImplementedException();
-            return pc.GetPersonAdressByPersnr(persnr);
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+
+            try
+            {
+                r.result = pc.GetPersonAdressByPersnr(persnr);
+                r.success = "true";
+                r.message = "all ok";
+                r.total = r.result.Count();
+            }
+            catch (Exception e)
+            {
+                //Handle failure
+                r.success = "false";
+                r.message = e.Message;
+                r.total = 0;
+            }
+            return r;
         }
 
     }
