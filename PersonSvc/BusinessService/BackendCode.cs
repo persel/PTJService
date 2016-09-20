@@ -12,7 +12,6 @@ namespace PersonSvc.BusinessService
 {
     public class BackendCode : IBackend
     {
-        //private dastabaseContext db;
         private ModelDbContext db;
         PersonCode pc;
         DbUtils dbUtils;
@@ -48,7 +47,7 @@ namespace PersonSvc.BusinessService
                             select p).FirstOrDefault();
                         if (personDb != null)
                         {
-                            db.Remove(personDb);
+                            personDb.UppdateradDatum = DateTime.Now; //do not delete. Set date instead to preserve history
                             db.SaveChanges();
                         }
                         else
@@ -128,6 +127,8 @@ namespace PersonSvc.BusinessService
         {
             Response<PersonViewModel> r = new Response<PersonViewModel>();
             List<PersonViewModel> persList = new List<PersonViewModel>();
+
+            //Set timestamp on old instance and create new instance with same id to preserve history
             using (db)
             {
                 using (var transaction = db.Database.BeginTransaction())
@@ -138,12 +139,22 @@ namespace PersonSvc.BusinessService
                             where p.Id == model.Person.Id
                             select p).FirstOrDefault();
 
-                        personDb.ForNamn = model.Person.ForNamn;
-                        personDb.EfterNamn = model.Person.EfterNamn;
-                        //personDb.Username = model.Person.Username;
-                        personDb.PersonNummer = model.Person.PersonNummer;
-                        personDb.UppdateradDatum = DateTime.Now;
-                        db.SaveChanges();
+                        if (personDb != null)
+                        {
+                            //Update old
+                            personDb.UppdateradDatum = DateTime.Now;
+                            db.SaveChanges();
+                            //create new
+                            Person person = new Person();
+                            person.Id = personDb.Id;
+                            person.ForNamn = model.Person.ForNamn;
+                            person.EfterNamn = model.Person.EfterNamn;
+                            //person.Username = model.Person.Username;
+                            person.PersonNummer = model.Person.PersonNummer;
+                            person.SkapadDatum = DateTime.Now;
+                            db.Person.Add(person);
+                            db.SaveChanges();
+                        }
 
                         //Save person type
                         if (model.PersonAnnanPerson != null)
@@ -152,9 +163,18 @@ namespace PersonSvc.BusinessService
                             var annanPersonDb = (from p in db.PersonAnnanPerson
                                 where p.Id == model.PersonAnnanPerson.Id
                                 select p).FirstOrDefault();
+                            if (annanPersonDb != null)
+                            {
+                                //update old
+                                annanPersonDb.UpdateradDatum = DateTime.Now;
+                                db.SaveChanges();
+                                //create new
+                                PersonAnnanPerson annanPers = new PersonAnnanPerson();
+                                annanPers.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
+                                annanPers.PersonFk = 
 
-                            annanPersonDb.UpdateradDatum = DateTime.Now;
-                            db.SaveChanges();
+                            }
+                            
                         }
                         else if (model.PersonAnstalld != null)
                         {
