@@ -10,34 +10,34 @@ namespace PTJ.Base.BusinessRules.Interfaces
     public interface IPerson
     {
      
-        Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
+        List<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
 
-        Response<PersonViewModel> GetPersonByPersnr(long persnr);
+        List<PersonViewModel> GetPersonByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+        List<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
 
         /* *
          * Employee Or Consult
          * */
-        Response<PersonAdressViewModel> GetEmployeeByPersnr(long persnr);
+        List<PersonAdressViewModel> GetEmployeeByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetConsultByPersnr(long persnr);
+        List<PersonAdressViewModel> GetConsultByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetEmployeeOrConsultByPersnr(long persnr);
+        List<PersonAdressViewModel> GetEmployeeOrConsultByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetEmployeeByOrgnr(long orgnr);
+        List<PersonAdressViewModel> GetEmployeeByOrgnr(long orgnr);
 
-        Response<PersonAdressViewModel> GetConsultByOrgnr(long orgnr);
+        List<PersonAdressViewModel> GetConsultByOrgnr(long orgnr);
 
-        Response<PersonAdressViewModel> GetEmployeeAndConsultByOrgnr(long orgnr);
+        List<PersonAdressViewModel> GetEmployeeAndConsultByOrgnr(long orgnr);
 
         /* *
          * Patient
          * */
 
-        Response<PersonAdressViewModel> GetPatientByPersnr(long persnr);
+        PersonAdressViewModel GetPatientByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetPatientByOrgnr(long orgnr);
+        PersonAdressViewModel GetPatientByOrgnr(long orgnr);
 
     }
 }

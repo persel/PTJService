@@ -6,13 +6,13 @@ namespace AdressSvc.BusinessService.Interfaces
 {
     interface IBackend
     {
-        Response<PersonViewModel> GetByPersnr(long persnr);
+        Response<AdressViewModel> GetByPersnr(long persnr);
 
-        Response<PersonViewModel> UpdateAdress(PersonViewModel model);
+        Response<AdressViewModel> UpdateAdress(PersonViewModel model);
 
-        Response<PersonViewModel> InsertAdress(PersonViewModel model);
+        Response<AdressViewModel> InsertAdress(PersonViewModel model);
 
-        Response<PersonViewModel> DeleteAdress(long persnr);
+        Response<AdressViewModel> DeleteAdress(long persnr);
 
     }
 }

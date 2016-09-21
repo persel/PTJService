@@ -15,7 +15,7 @@ namespace PTJ.DataLayer.Models
         public DateTime? SkapadDatum { get; set; }
         public DateTime? UpdateradDatum { get; set; }
 
-        public virtual Adress AdressFk { get; set; }
-        public virtual Person PersonFk { get; set; }
+        //public virtual Adress AdressFk { get; set; }
+        //public virtual Person PersonFk { get; set; }
     }
 }

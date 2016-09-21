@@ -1,9 +1,11 @@
 ﻿using System;
-using PTJ.DataLayer.Models;
-using PTJ.Base.BusinessRules;
-using PTJ.Base.BusinessRules.ViewModels;
-using PTJ.Message;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AdressSvc.BusinessService.Interfaces;
+using PTJ.Message;
+using PTJ.DataLayer.Models;
+using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Base.BusinessRules.Code;
 
 namespace AdressSvc.BusinessService
@@ -21,24 +23,58 @@ namespace AdressSvc.BusinessService
             ac = new AdressCode(db);
         }
 
-        public Response<PersonViewModel> GetByPersnr(long persnr)
+        public Response<AdressViewModel> GetByPersnr(long persnr)
         {
             throw new NotImplementedException();
         }
 
-        public Response<PersonViewModel> UpdateAdress(PersonViewModel model)
+        public Response<AdressViewModel> UpdateAdress(PersonViewModel model)
         {
             throw new NotImplementedException();
         }
 
-        public Response<PersonViewModel> InsertAdress(PersonViewModel model)
+        public Response<AdressViewModel> InsertAdress(PersonViewModel model)
         {
             throw new NotImplementedException();
         }
 
-        public Response<PersonViewModel> DeleteAdress(long persnr)
+
+        public Response<AdressViewModel> DeleteAdress(long id)
         {
-            throw new NotImplementedException();
+            Response<AdressViewModel> r = new Response<AdressViewModel>();
+            using (db)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var adressDb = (from a in db.Adress
+                                        where a.Id == id
+                                        select a).FirstOrDefault();
+
+                        if (adressDb != null)
+                        {
+                            adressDb.UpdateradDatum = DateTime.Now; //do not delete. Set date instead to preserve history
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            r.success = "false";
+                            r.message = "Kan inte ta bort adressen eftersom den saknas i databasen.";
+                            r.total = 0;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        //Handle failure
+                        r.success = "false";
+                        r.message = e.Message;
+                        r.total = 0;
+                    }
+                }
+            }
+
+            return r;
         }
     }
 }
