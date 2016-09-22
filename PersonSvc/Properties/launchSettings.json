@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/person/Delete/197307186740",
+      "launchUrl": "api/person/GetByPersnr/192803073321",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

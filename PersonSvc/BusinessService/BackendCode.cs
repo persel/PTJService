@@ -7,6 +7,7 @@ using PTJ.Message;
 using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Base.BusinessRules.Code;
+using PTJ.Base.BusinessRules.Interfaces;
 
 namespace PersonSvc.BusinessService
 {
@@ -114,12 +115,6 @@ namespace PersonSvc.BusinessService
             }
 
             return r;
-        }
-
-
-        public Response<PersonViewModel> AddPerson(Person person)
-        {
-            throw new NotImplementedException();
         }
 
 
@@ -238,103 +233,72 @@ namespace PersonSvc.BusinessService
         }
 
 
-
-        public Response<PersonViewModel> InsertPerson(PersonViewModel model)
+        public Response<PersonViewModel> CreatePerson(PersonViewModel model)
         {
             Response<PersonViewModel> r = new Response<PersonViewModel>();
-            List<PersonViewModel> persList = new List<PersonViewModel>();
 
-            using (db)
+            PersonValidation validate = new PersonValidation(db);
+            PersonCreateUpdateDelete crud = new PersonCreateUpdateDelete(db);
+
+            string validationMsg = String.Empty;
+            string errorMsg = String.Empty;
+            bool isValidateOk = true;
+
+            try
             {
-                using (var transaction = db.Database.BeginTransaction())
+                //1. Check all parameters are ok
+                if (validate.CheckCreateValues(model, ref validationMsg))
                 {
-                    try
+                    if (validate.AllreadyExist(model.Person.PersonNummer, ref validationMsg))
                     {
-                        var allreadyExist = (from p in db.Person
-                            where p.PersonNummer == model.Person.PersonNummer
-                            select p.PersonNummer).FirstOrDefault();
+                        isValidateOk = false;
+                    }
+                }
+                else
+                {
+                    isValidateOk = false;
+                }
 
-                        if (String.IsNullOrEmpty(allreadyExist))
-                        {
-                            //model.Person.Id = GetNewDbId("Person");
-                            model.Person.Id = dbUtils.GetNewDbId("Person");
-                            model.Person.SkapadDatum = DateTime.Now;
-                            model.Person.UppdateradDatum = DateTime.Now;
-                            model.Person.UppdateradAv = "mah";
-                            db.Person.Add(model.Person);
-                            db.SaveChanges();
+                //2. Send them back to the create class if all is ok
+                if (isValidateOk)
+                {
+                    if (crud.CreatePerson(model, ref errorMsg))
+                    {
+                        long PersonNummer = Convert.ToInt64(model.Person.PersonNummer);
 
-                            //Get id 
-                            var dbPersonId = model.Person.Id;
-
-                            //Save person type
-                            if (model.PersonAnnanPerson != null)
-                            {
-                                model.PersonAnnanPerson.PersonFkid = model.Person.Id;
-                                model.PersonAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
-                                model.PersonAnnanPerson.SkapadDatum = DateTime.Now;
-                                model.PersonAnnanPerson.UpdateradDatum = DateTime.Now;
-                                db.PersonAnnanPerson.Add(model.PersonAnnanPerson);
-                                db.SaveChanges();
-                            }
-                            else if (model.PersonAnstalld != null)
-                            {
-                                model.PersonAnstalld.PersonFkid = model.Person.Id;
-                                model.PersonAnstalld.Id = dbUtils.GetNewDbId("PersonAnstalld");
-                                model.PersonAnstalld.SkapadDatum = DateTime.Now;
-                                model.PersonAnstalld.UpdateradDatum = DateTime.Now;
-                                db.PersonAnstalld.Add(model.PersonAnstalld);
-                                db.SaveChanges();
-                            }
-                            else if (model.PersonKonsult != null)
-                            {
-                                model.PersonKonsult.PersonFkid = model.Person.Id;
-                                model.PersonKonsult.Id = dbUtils.GetNewDbId("PersonKonsult");
-                                model.PersonKonsult.SkapadDatum = DateTime.Now;
-                                model.PersonKonsult.UpdateradDatum = DateTime.Now;
-                                db.PersonKonsult.Add(model.PersonKonsult);
-                                db.SaveChanges();
-                            }
-                            else if (model.PersonPatient != null)
-                            {
-                                model.PersonPatient.PersonFkid = model.Person.Id;
-                                model.PersonPatient.Id = dbUtils.GetNewDbId("PersonPatient");
-                                model.PersonPatient.SkapadDatum = DateTime.Now;
-                                model.PersonPatient.UpdateradDatum = DateTime.Now;
-                                db.PersonPatient.Add(model.PersonPatient);
-                                db.SaveChanges();
-                            }
-                            else if (model.PersonSjukHalsovardsPersonal != null)
-                            {
-                                model.PersonSjukHalsovardsPersonal.PersonFkid = model.Person.Id;
-                                model.PersonSjukHalsovardsPersonal.Id =
-                                    dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
-                                model.PersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
-                                model.PersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
-                                db.PersonSjukHalsovardsPersonal.Add(model.PersonSjukHalsovardsPersonal);
-                                db.SaveChanges();
-                            }
-                        }
-
-                        // Commit transaction if all commands succeed, transaction will auto-rollback
-                        // when disposed if either commands fails
-                        transaction.Commit();
+                        //if all is ok return the newly created person in the response
                         r.success = "true";
                         r.message = "all ok";
-                        r.total = 0;
+                        r.result = pc.GetPersonByPersnr(PersonNummer);
+                        r.total = r.result.Count();
                     }
-                    catch (Exception e)
+                    else
                     {
-                        //Handle failure
                         r.success = "false";
-                        r.message = e.Message;
+                        r.message = errorMsg;
                         r.total = 0;
                     }
                 }
+                else
+                {
+                    r.success = "false";
+                    r.message = "CheckCreateValues or allready exist error: " + validationMsg;
+                    r.errorcode = 600;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                //Handle failure
+                r.success = "false";
+                r.message = e.Message;
+                r.total = 0;
             }
 
             return r;
         }
+
 
         public PersonAnnanPerson GetPersonAnnanPerson(long personsId)
         {

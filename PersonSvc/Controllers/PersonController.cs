@@ -20,12 +20,13 @@ namespace PersonSvc.Controllers
         * https://docs.asp.net/en/latest/tutorials/web-api-help-pages-using-swagger.html
      **/
 
-    [Route("api/[controller]/[action]")]
+    //[Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class PersonController : Controller
     {
         private IBackend backend;
         private ModelDbContext db;
-       
+
 
         public PersonController(ModelDbContext context)
         {
@@ -33,47 +34,21 @@ namespace PersonSvc.Controllers
             backend = new BackendCode(db);
         }
 
-
-        //// GET api/values
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/values/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        [HttpGet("{persnr}")]
+      
+        [HttpGet("GetByPersnr/{persnr}")]
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
-            //Response resp = backend.GetByPersnr(persnr);
             return backend.GetByPersnr(persnr);
         }
 
-        //public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
-        //{
-        //    return backend.GetPersonAdressByPersnr(persnr);
-        //}
-
-        //// POST api/values
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
         // POST api/values
         [HttpPost]
-        public Response<PersonViewModel> InsertPers([FromBody] PersonViewModel model)
+        public Response<PersonViewModel> Create([FromBody] PersonViewModel model)
         {
             Response<PersonViewModel> result = new Response<PersonViewModel>();
-            if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn) )
+            if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
             {
-                result = backend.InsertPerson(model);
+                result = backend.CreatePerson(model);
             }
             else
             {
@@ -84,11 +59,6 @@ namespace PersonSvc.Controllers
             return result;
         }
 
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
 
         [HttpPut]
         public Response<PersonViewModel> UpdatePers([FromBody] PersonViewModel model)

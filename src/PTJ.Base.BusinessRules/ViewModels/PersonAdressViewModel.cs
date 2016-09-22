@@ -1,10 +1,11 @@
-﻿using PTJ.DataLayer.Models;
+﻿using PTJ.Base.BusinessRules.Interfaces;
+using PTJ.DataLayer.Models;
 using System.Collections.Generic;
 
 
 namespace PTJ.Base.BusinessRules.ViewModels
 {
-    public class PersonAdressViewModel 
+    public class PersonAdressViewModel : IViewModel<PersonAdressViewModel>
     {
         public Person Person { get; set; }
 
