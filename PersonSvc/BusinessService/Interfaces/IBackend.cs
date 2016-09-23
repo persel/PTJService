@@ -13,7 +13,7 @@ namespace PersonSvc.BusinessService.Interfaces
 
         Response<PersonViewModel> GetByPersnr(long persnr);
 
-        Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+       // Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
 
      
         Response<PersonViewModel> UpdatePerson(PersonViewModel model);
@@ -21,17 +21,6 @@ namespace PersonSvc.BusinessService.Interfaces
         Response<PersonViewModel> CreatePerson(PersonViewModel model);
 
         Response<PersonViewModel> DeletePerson(long persnr);
-
-        //long GetNewDbId(string tableName);
-        PersonAnnanPerson GetPersonAnnanPerson(long personsId);
-
-        PersonAnstalld  GetPersonAnstalld(long personsId);
-
-        PersonKonsult GetPersonKonsult(long personsId);
-
-        PersonPatient GetPersonPatient(long personsId);
-
-        PersonSjukHalsovardsPersonal GetPersonSjukHalsovardsPersonal(long personsId);
 
     }
 }

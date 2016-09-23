@@ -8,9 +8,9 @@ namespace PTJ.Base.BusinessRules.Code
 {
     public class DbUtils
     {
-        private ModelDbContext db;
+        private IApplicationDbContext db;
 
-        public DbUtils(ModelDbContext _db)
+        public DbUtils(IApplicationDbContext _db)
         {
             db = _db;
         }

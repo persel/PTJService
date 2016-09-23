@@ -10,9 +10,9 @@ namespace PersonSvc.BusinessService
 {
     public class PersonValidation : IValidation<PersonViewModel>
     {
-        private ModelDbContext db;
+        private IApplicationDbContext db;
       
-        public PersonValidation(ModelDbContext _db)
+        public PersonValidation(IApplicationDbContext _db)
         {
             db = _db;
         }

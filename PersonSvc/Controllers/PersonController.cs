@@ -24,17 +24,30 @@ namespace PersonSvc.Controllers
     [Route("api/[controller]")]
     public class PersonController : Controller
     {
+        private IPerson pc;
+        private IPersonCreateUpdateDelete crud;
         private IBackend backend;
-        private ModelDbContext db;
+        private readonly ModelDbContext db;
 
 
         public PersonController(ModelDbContext context)
         {
             db = context;
-            backend = new BackendCode(db);
+            pc = new PersonCode(db);
+            crud = new PersonCreateUpdateDelete(db);
+            backend = new BackendCode(db,crud,pc);
         }
 
-      
+        //public PersonController(IApplicationDbContext context, IPersonCreateUpdateDelete _crud, IPerson _pc)
+        //{
+        //    IApplicationDbContext db1;
+        //    db1 = context;
+        //    pc = _pc;
+        //    crud = _crud;
+        //    backend = new BackendCode(db1, crud, pc);
+        //}
+
+
         [HttpGet("GetByPersnr/{persnr}")]
         public Response<PersonViewModel> GetByPersnr(long persnr)
         {
@@ -78,14 +91,6 @@ namespace PersonSvc.Controllers
 
         }
 
-
-        //// DELETE api/values/5
-        //[HttpDelete("{persnr}")]
-        //public void Delete(long persnr)
-        //{
-
-        //}
-
         // DELETE api/values/5
         [HttpDelete("{persnr}")]
         public Response<PersonViewModel> Delete(long persnr)
@@ -94,7 +99,7 @@ namespace PersonSvc.Controllers
 
             if (persnr != 0)
             {
-                backend.DeletePerson(persnr);
+                result = backend.DeletePerson(persnr);
             }
             else
             {

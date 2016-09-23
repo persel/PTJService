@@ -5,11 +5,12 @@ using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
 using PTJ.Base.BusinessRules.ViewModels;
+using PersonSvc.BusinessService.Interfaces;
 //using PTJ.Message;
 
 namespace PersonSvc.BusinessService
 {
-    public class PersonCreateUpdateDelete : ICreateUpdateDelete<Person>
+    public class PersonCreateUpdateDelete : IPersonCreateUpdateDelete //ICreateUpdateDelete<Person>
     {
 
         private ModelDbContext db;
@@ -22,16 +23,10 @@ namespace PersonSvc.BusinessService
 
         }
 
-        public bool Create(IQueryable<Person> entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool CreatePerson(PersonViewModel model, ref string errorMsg)
         {
-            //Response<PersonViewModel> r = new Response<PersonViewModel>();
-            //List<PersonViewModel> persList = new List<PersonViewModel>();
-
+           
             using (db)
             {
                 using (var transaction = db.Database.BeginTransaction())
@@ -44,10 +39,10 @@ namespace PersonSvc.BusinessService
 
                         if (String.IsNullOrEmpty(allreadyExist))
                         {
-                            //model.Person.Id = GetNewDbId("Person");
+                           
                             model.Person.Id = dbUtils.GetNewDbId("Person");
                             model.Person.SkapadDatum = DateTime.Now;
-                            model.Person.UppdateradDatum = DateTime.Now;
+                            //model.Person.UppdateradDatum = DateTime.Now;
                             model.Person.UppdateradAv = "mah";
                             db.Person.Add(model.Person);
                             db.SaveChanges();
@@ -126,24 +121,155 @@ namespace PersonSvc.BusinessService
             
         }
 
-        public bool Delete(IQueryable<Person> entity)
+     
+        public bool DeletePerson(long persnr, ref string errorMsg)
         {
-            throw new NotImplementedException();
+            using (db)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var personDb = (from p in db.Person
+                                        where p.PersonNummer == persnr.ToString()
+                                        select p).FirstOrDefault();
+                        if (personDb != null)
+                        {
+                            personDb.UppdateradDatum = DateTime.Now; //do not delete. Set date instead to preserve history
+                            db.SaveChanges();
+                            return true;
+                        }
+                        else
+                        {
+                            errorMsg = "Kan inte ta bort personen eftersom personen saknas i databasen.";
+                            return false;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        errorMsg = e.Message;
+                        return false;
+                    }
+                }
+            }
+
         }
 
-        public bool DeletePerson(long persnr)
+        public bool UpdatePerson(PersonViewModel model, ref string errorMsg)
         {
-            throw new NotImplementedException();
-        }
 
-        public bool Update(IQueryable<Person> entity)
-        {
-            throw new NotImplementedException();
-        }
+            using (db)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var personDb = (from p in db.Person
+                                        where p.Id == model.Person.Id
+                                        select p).FirstOrDefault();
 
-        public bool UpdatePerson(Person person)
-        {
-            throw new NotImplementedException();
+                        if (personDb != null)
+                        {
+                            //Update old
+                            personDb.UppdateradDatum = DateTime.Now;                          
+                            db.SaveChanges();
+
+                            //create new
+                            //model.Person.Id = dbUtils.GetNewDbId("Person");
+                            //model.Person.SkapadDatum = DateTime.Now;
+                            //model.Person.UppdateradDatum = DateTime.Now;
+                            //model.Person.UppdateradAv = "mah";
+                            //db.Person.Add(model.Person);
+                            //db.SaveChanges();
+
+                            Person person = new Person();
+                            person.Id = dbUtils.GetNewDbId("Person");
+                            person.ForNamn = model.Person.ForNamn;
+                            person.EfterNamn = model.Person.EfterNamn;
+                          
+                            //person.Username = model.Person.Username;
+                            person.PersonNummer = model.Person.PersonNummer;
+                            person.SkapadDatum = DateTime.Now;
+                            db.Person.Add(person);
+                            db.SaveChanges();
+                        }
+
+                        ////Save person type
+                        //if (model.PersonAnnanPerson != null)
+                        //{
+                        //    //Hämta och uppdatera
+                        //    var annanPersonDb = (from p in db.PersonAnnanPerson
+                        //                         where p.Id == model.PersonAnnanPerson.Id
+                        //                         select p).FirstOrDefault();
+                        //    if (annanPersonDb != null)
+                        //    {
+                        //        //update old
+                        //        annanPersonDb.UpdateradDatum = DateTime.Now;
+                        //        db.SaveChanges();
+                        //        //create new
+                        //        PersonAnnanPerson annanPers = new PersonAnnanPerson();
+                        //        annanPers.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
+                        //        //annanPers.PersonFk = 
+
+                        //    }
+
+                        //}
+                        //else if (model.PersonAnstalld != null)
+                        //{
+                        //    //Hämta och uppdatera
+                        //    var anstalldPersonDb = (from p in db.PersonAnstalld
+                        //                            where p.Id == model.PersonAnstalld.Id
+                        //                            select p).FirstOrDefault();
+
+                        //    anstalldPersonDb.UpdateradDatum = DateTime.Now;
+                        //    db.SaveChanges();
+                        //}
+                        //else if (model.PersonKonsult != null)
+                        //{
+                        //    //Hämta och uppdatera
+                        //    var konsultPersonDb = (from p in db.PersonKonsult
+                        //                           where p.Id == model.PersonKonsult.Id
+                        //                           select p).FirstOrDefault();
+
+                        //    konsultPersonDb.UpdateradDatum = DateTime.Now;
+                        //    db.SaveChanges();
+                        //}
+                        //else if (model.PersonPatient != null)
+                        //{
+                        //    //Hämta och uppdatera
+                        //    var patientPersonDb = (from p in db.PersonPatient
+                        //                           where p.Id == model.PersonPatient.Id
+                        //                           select p).FirstOrDefault();
+
+                        //    patientPersonDb.UpdateradDatum = DateTime.Now;
+                        //    db.SaveChanges();
+                        //}
+                        //else if (model.PersonSjukHalsovardsPersonal != null)
+                        //{
+                        //    //Hämta och uppdatera
+                        //    var HKPersonalPersonDb = (from p in db.PersonSjukHalsovardsPersonal
+                        //                              where p.Id == model.PersonSjukHalsovardsPersonal.Id
+                        //                              select p).FirstOrDefault();
+
+                        //    HKPersonalPersonDb.UpdateradDatum = DateTime.Now;
+                        //    db.SaveChanges();
+                        //}
+
+                        // Commit transaction if all commands succeed, transaction will auto-rollback
+                        // when disposed if either commands fails
+                        transaction.Commit();
+                        return true;
+                        
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        errorMsg = e.Message;
+                        return false;
+                    }
+                }
+            }
+
         }
     }
 }

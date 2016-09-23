@@ -13,64 +13,28 @@ namespace PersonSvc.BusinessService
 {
     public class BackendCode : IBackend
     {
-        private ModelDbContext db;
-        PersonCode pc;
+        private readonly ModelDbContext db;
+        
         DbUtils dbUtils;
+        private IPerson pc;
+        private IPersonCreateUpdateDelete crud;
 
-        public BackendCode(ModelDbContext _db)
+        public BackendCode(ModelDbContext _db, IPersonCreateUpdateDelete _crud, IPerson _pc)
         {
             db = _db;
             dbUtils = new DbUtils(db);
-            pc = new PersonCode(db);
+            pc = _pc;
+            crud = _crud;
         }
 
-        public bool CanISeThis(string username)
-        {
-            return true;
-        }
-
-        public Response<PersonViewModel> CreatePerson(Person person)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Response<PersonViewModel> DeletePerson(long persnr)
-        {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
-            using (db)
-            {
-                using (var transaction = db.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        var personDb = (from p in db.Person
-                            where p.PersonNummer == persnr.ToString()
-                            select p).FirstOrDefault();
-                        if (personDb != null)
-                        {
-                            personDb.UppdateradDatum = DateTime.Now; //do not delete. Set date instead to preserve history
-                            db.SaveChanges();
-                        }
-                        else
-                        {
-                            r.success = "false";
-                            r.message = "Kan inte ta bort personen eftersom personen saknas i databasen.";
-                            r.total = 0;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        //Handle failure
-                        r.success = "false";
-                        r.message = e.Message;
-                        r.total = 0;
-                    }
-                }
-            }
-
-            return r;
-        }
-
+        //public BackendCode(IApplicationDbContext _db, IPersonCreateUpdateDelete _crud, IPerson _pc)
+        //{
+        //    IApplicationDbContext db1;
+        //    db1 = _db;
+        //    dbUtils = new DbUtils(db);
+        //    pc = _pc;
+        //    crud = _crud;
+        //}
 
         public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
@@ -118,127 +82,12 @@ namespace PersonSvc.BusinessService
         }
 
 
-        public Response<PersonViewModel> UpdatePerson(PersonViewModel model)
-        {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
-            List<PersonViewModel> persList = new List<PersonViewModel>();
-
-            //Set timestamp on old instance and create new instance with same id to preserve history
-            using (db)
-            {
-                using (var transaction = db.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        var personDb = (from p in db.Person
-                            where p.Id == model.Person.Id
-                            select p).FirstOrDefault();
-
-                        if (personDb != null)
-                        {
-                            //Update old
-                            personDb.UppdateradDatum = DateTime.Now;
-                            db.SaveChanges();
-                            //create new
-                            Person person = new Person();
-                            person.Id = personDb.Id;
-                            person.ForNamn = model.Person.ForNamn;
-                            person.EfterNamn = model.Person.EfterNamn;
-                            //person.Username = model.Person.Username;
-                            person.PersonNummer = model.Person.PersonNummer;
-                            person.SkapadDatum = DateTime.Now;
-                            db.Person.Add(person);
-                            db.SaveChanges();
-                        }
-
-                        //Save person type
-                        if (model.PersonAnnanPerson != null)
-                        {
-                            //Hämta och uppdatera
-                            var annanPersonDb = (from p in db.PersonAnnanPerson
-                                where p.Id == model.PersonAnnanPerson.Id
-                                select p).FirstOrDefault();
-                            if (annanPersonDb != null)
-                            {
-                                //update old
-                                annanPersonDb.UpdateradDatum = DateTime.Now;
-                                db.SaveChanges();
-                                //create new
-                                PersonAnnanPerson annanPers = new PersonAnnanPerson();
-                                annanPers.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
-                                //annanPers.PersonFk = 
-
-                            }
-                            
-                        }
-                        else if (model.PersonAnstalld != null)
-                        {
-                            //Hämta och uppdatera
-                            var anstalldPersonDb = (from p in db.PersonAnstalld
-                                where p.Id == model.PersonAnstalld.Id
-                                select p).FirstOrDefault();
-
-                            anstalldPersonDb.UpdateradDatum = DateTime.Now;
-                            db.SaveChanges();
-                        }
-                        else if (model.PersonKonsult != null)
-                        {
-                            //Hämta och uppdatera
-                            var konsultPersonDb = (from p in db.PersonKonsult
-                                where p.Id == model.PersonKonsult.Id
-                                select p).FirstOrDefault();
-
-                            konsultPersonDb.UpdateradDatum = DateTime.Now;
-                            db.SaveChanges();
-                        }
-                        else if (model.PersonPatient != null)
-                        {
-                            //Hämta och uppdatera
-                            var patientPersonDb = (from p in db.PersonPatient
-                                where p.Id == model.PersonPatient.Id
-                                select p).FirstOrDefault();
-
-                            patientPersonDb.UpdateradDatum = DateTime.Now;
-                            db.SaveChanges();
-                        }
-                        else if (model.PersonSjukHalsovardsPersonal != null)
-                        {
-                            //Hämta och uppdatera
-                            var HKPersonalPersonDb = (from p in db.PersonSjukHalsovardsPersonal
-                                where p.Id == model.PersonSjukHalsovardsPersonal.Id
-                                select p).FirstOrDefault();
-
-                            HKPersonalPersonDb.UpdateradDatum = DateTime.Now;
-                            db.SaveChanges();
-                        }
-
-                        // Commit transaction if all commands succeed, transaction will auto-rollback
-                        // when disposed if either commands fails
-                        transaction.Commit();
-                        r.success = "true";
-                        r.message = "all ok";
-                        r.total = 0;
-                    }
-                    catch (Exception e)
-                    {
-                        //Handle failure
-                        r.success = "false";
-                        r.message = e.Message;
-                        r.total = 0;
-                    }
-                }
-            }
-
-            return r;
-        }
-
-
         public Response<PersonViewModel> CreatePerson(PersonViewModel model)
         {
             Response<PersonViewModel> r = new Response<PersonViewModel>();
 
             PersonValidation validate = new PersonValidation(db);
-            PersonCreateUpdateDelete crud = new PersonCreateUpdateDelete(db);
+
 
             string validationMsg = String.Empty;
             string errorMsg = String.Empty;
@@ -299,74 +148,44 @@ namespace PersonSvc.BusinessService
             return r;
         }
 
-
-        public PersonAnnanPerson GetPersonAnnanPerson(long personsId)
+        public Response<PersonViewModel> UpdatePerson(PersonViewModel model)
         {
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            List<PersonViewModel> persList = new List<PersonViewModel>();
 
-            var annanPerson = (from p in db.PersonAnnanPerson
-                where p.PersonFkid == personsId
-                select p).FirstOrDefault<PersonAnnanPerson>();
-
-            return annanPerson;
-        }
-
-        public PersonAnstalld GetPersonAnstalld(long personsId)
-        {
-            var anstalldPerson = (from a in db.PersonAnstalld
-                where a.PersonFkid == personsId
-                select a).FirstOrDefault<PersonAnstalld>();
-
-            return anstalldPerson;
-        }
-
-        public PersonKonsult GetPersonKonsult(long personsId)
-        {
-
-            var konsultPerson = (from p in db.PersonKonsult
-                where p.PersonFkid == personsId
-                select p).FirstOrDefault<PersonKonsult>();
-
-            return konsultPerson;
-        }
-
-        public PersonPatient GetPersonPatient(long personsId)
-        {
-
-            var patientPerson = (from p in db.PersonPatient
-                where p.PersonFkid == personsId
-                select p).FirstOrDefault<PersonPatient>();
-
-            return patientPerson;
-        }
-
-        public PersonSjukHalsovardsPersonal GetPersonSjukHalsovardsPersonal(long personsId)
-        {
-            //throw new NotImplementedException();
-
-            var HKPerson = (from p in db.PersonSjukHalsovardsPersonal
-                where p.PersonFkid == personsId
-                select p).FirstOrDefault<PersonSjukHalsovardsPersonal>();
-
-            return HKPerson;
-        }
-
-        public Response<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
-        {
-            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
-
-            try
+            string errorMsg = String.Empty;
+            if (crud.UpdatePerson(model, ref errorMsg))
             {
-                r.result = pc.GetPersonAdressByPersnr(persnr);
+                long PersonNummer = Convert.ToInt64(model.Person.PersonNummer);
                 r.success = "true";
-                r.message = "all ok";
+                r.message = "Person {persnr} updated";
+                r.result = pc.GetPersonByPersnr(PersonNummer);
                 r.total = r.result.Count();
             }
-            catch (Exception e)
+            else
             {
-                //Handle failure
                 r.success = "false";
-                r.message = e.Message;
-                r.total = 0;
+                r.message = "Error: " + errorMsg;
+                r.errorcode = 600;
+            }
+
+            return r;
+        }
+
+        public Response<PersonViewModel> DeletePerson(long persnr)
+        {
+            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            string errorMsg = String.Empty;
+            if (crud.DeletePerson(persnr, ref errorMsg))
+            {
+                r.success = "true";
+                r.message = "Person {persnr} deleted";
+            }
+            else
+            {
+                r.success = "false";
+                r.message = "Error: " + errorMsg;
+                r.errorcode = 600;
             }
             return r;
         }
