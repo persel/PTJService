@@ -30,7 +30,7 @@ namespace PTJ.DataLayer.Models
      
     }
 
-    public class ModelDbContext : DbContext, IApplicationDbContext
+    public class ModelDbContext : DbContext//, IApplicationDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

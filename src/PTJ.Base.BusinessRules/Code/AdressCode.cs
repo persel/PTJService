@@ -11,8 +11,8 @@ namespace PTJ.Base.BusinessRules.Code
 {
     public class AdressCode : IAdress
     {
-        private IApplicationDbContext db;
-        public AdressCode(IApplicationDbContext _db)
+        private ModelDbContext db;
+        public AdressCode(ModelDbContext _db)
         {
             db = _db;
         }

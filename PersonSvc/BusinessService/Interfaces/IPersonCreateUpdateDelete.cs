@@ -9,6 +9,8 @@ namespace PersonSvc.BusinessService.Interfaces
 {
     public interface IPersonCreateUpdateDelete
     {
+        bool AllreadyExist(string entityId, ref string validationMsg);
+
         bool CreatePerson(PersonViewModel model, ref string errorMsg);
 
 

@@ -13,18 +13,16 @@ namespace PersonSvc.BusinessService
 {
     public class BackendCode : IBackend
     {
-        private readonly ModelDbContext db;
-        
-        DbUtils dbUtils;
+
         private IPerson pc;
         private IPersonCreateUpdateDelete crud;
+        private IPersonValidation validate;
 
-        public BackendCode(ModelDbContext _db, IPersonCreateUpdateDelete _crud, IPerson _pc)
+        public BackendCode(IPersonCreateUpdateDelete _crud, IPerson _pc, IPersonValidation _validate)
         {
-            db = _db;
-            dbUtils = new DbUtils(db);
             pc = _pc;
             crud = _crud;
+            validate = _validate;
         }
 
         //public BackendCode(IApplicationDbContext _db, IPersonCreateUpdateDelete _crud, IPerson _pc)
@@ -39,24 +37,6 @@ namespace PersonSvc.BusinessService
         public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
             throw new NotImplementedException();
-            //var test = db.Person.ToList();
-            //Response r = new Response();
-            //PersonViewModel model = new PersonViewModel();
-            //List<PersonViewModel> persList = new List<PersonViewModel>();
-
-            //r.success = "true";
-            //r.message = "all ok";
-            //r.total = test.Count();
-
-            //foreach (var person in test)
-            //{
-            //    model.Person = person;
-            //    persList.Add(model);
-            //}
-
-            //r.result = persList;
-
-            //return r;
         }
 
         public Response<PersonViewModel> GetByPersnr(long persnr)
@@ -86,8 +66,7 @@ namespace PersonSvc.BusinessService
         {
             Response<PersonViewModel> r = new Response<PersonViewModel>();
 
-            PersonValidation validate = new PersonValidation(db);
-
+          
 
             string validationMsg = String.Empty;
             string errorMsg = String.Empty;
@@ -98,7 +77,7 @@ namespace PersonSvc.BusinessService
                 //1. Check all parameters are ok
                 if (validate.CheckCreateValues(model, ref validationMsg))
                 {
-                    if (validate.AllreadyExist(model.Person.PersonNummer, ref validationMsg))
+                    if (crud.AllreadyExist(model.Person.PersonNummer, ref validationMsg))
                     {
                         isValidateOk = false;
                     }

@@ -10,7 +10,9 @@
 
 //        public void SetPdpProvider()//string _url, string _username , string _password)
 //        {
-
+//            string url = ;
+//            string userName =  ConfigurationManager.AppSettings["PepUser"];
+//            string password =  _password;// ConfigurationManager.AppSettings["PepPassword"];
 
 //            this.pdpProvider = new Aps5WsPolicyDecisionPointProvider(url, userName, password);
 //        }

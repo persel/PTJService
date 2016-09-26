@@ -288,7 +288,8 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PersonSvc">
+    <Reference Include="PersonSvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PersonSvc\bin\Debug\netcoreapp1.0\PersonSvc.dll</HintPath>
     </Reference>
     <Reference Include="PTJ.Base.BusinessRules, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -368,8 +369,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Reflection.Metadata, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reflection.Metadata.1.3.0\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.4.1-beta-24227-04\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -442,6 +443,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BusinessServiceTest\PersonCreateUpdateDeleteFake.cs" />
+    <Compile Include="BusinessServiceTest\PersonValidationTest.cs" />
     <Compile Include="Controllers\PersonTestController.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

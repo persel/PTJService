@@ -23,6 +23,23 @@ namespace PersonSvc.BusinessService
 
         }
 
+        public bool AllreadyExist(string entityId, ref string validationMsg)
+        {
+            var allreadyExist = (from p in db.Person
+                                 where p.PersonNummer == entityId
+                                 select p.PersonNummer).FirstOrDefault();
+
+            if (String.IsNullOrEmpty(allreadyExist))
+            {
+                return false;
+            }
+            else
+            {
+                validationMsg = "Error Create Person allready exist " + entityId;
+                return true;
+            }
+        }
+
 
         public bool CreatePerson(PersonViewModel model, ref string errorMsg)
         {

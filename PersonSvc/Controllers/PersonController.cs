@@ -10,6 +10,7 @@ using PersonSvc.BusinessService.Interfaces;
 using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
+using PersonSvc.BusinessService.Utils;
 
 namespace PersonSvc.Controllers
 {
@@ -27,6 +28,8 @@ namespace PersonSvc.Controllers
         private IPerson pc;
         private IPersonCreateUpdateDelete crud;
         private IBackend backend;
+        private IPersonValidation validate;
+        private IValueUtils valueUtils;
         private readonly ModelDbContext db;
 
 
@@ -35,16 +38,24 @@ namespace PersonSvc.Controllers
             db = context;
             pc = new PersonCode(db);
             crud = new PersonCreateUpdateDelete(db);
-            backend = new BackendCode(db,crud,pc);
+            valueUtils = new ValueUtils(); 
+            validate = new PersonValidation(valueUtils);
+           
+            backend = new BackendCode(crud,pc, validate);
         }
 
-        //public PersonController(IApplicationDbContext context, IPersonCreateUpdateDelete _crud, IPerson _pc)
+
+
+        //public PersonController(ModelDbContext context, IPersonCreateUpdateDelete _crud)
         //{
-        //    IApplicationDbContext db1;
-        //    db1 = context;
-        //    pc = _pc;
+
+        //    db = context;
+        //    pc = new PersonCode(db);
         //    crud = _crud;
-        //    backend = new BackendCode(db1, crud, pc);
+        //    valueUtils = new ValueUtils();
+        //    validate = new PersonValidation(valueUtils);
+
+        //    backend = new BackendCode(crud, pc, validate);
         //}
 
 

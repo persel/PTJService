@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using PTJ.DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace PersonSvc
 {
     public class Startup
@@ -30,7 +31,8 @@ namespace PersonSvc
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ModelDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));           
+            services.AddDbContext<ModelDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                     
             services.AddMvc();
 
             services.AddSwaggerGen();
