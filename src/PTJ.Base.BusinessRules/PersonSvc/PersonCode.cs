@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.AdressSvc;
 
-namespace PTJ.Base.BusinessRules.Code
+namespace PTJ.Base.BusinessRules.PersonSvc
 {
     public class PersonCode : IPerson
     {

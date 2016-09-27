@@ -1,11 +1,11 @@
-﻿using PTJ.Base.BusinessRules.ViewModels;
+﻿using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Message;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PTJ.Base.BusinessRules.Interfaces
+namespace PTJ.Base.BusinessRules.PersonSvc
 {
     public interface IPerson
     {

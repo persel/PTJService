@@ -1,5 +1,5 @@
 ﻿using PTJ.Base.BusinessRules.AdressSvc;
-using PTJ.Base.BusinessRules.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

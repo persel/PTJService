@@ -1,9 +1,9 @@
-﻿using PTJ.Base.BusinessRules.ViewModels;
+﻿using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
 
 
-namespace PersonSvc.BusinessService.Interfaces
+namespace PersonSvc.BusinessRules.Interfaces
 {
     interface IBackend
     {

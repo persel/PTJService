@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PersonSvc.BusinessService;
-using PersonSvc.BusinessService.Utils;
+using PersonSvc.BusinessRules;
+using PersonSvc.BusinessRules.Utils;
 using PersonSvc.Controllers;
 using PTJ.Base.BusinessRules.Code;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
 using System;

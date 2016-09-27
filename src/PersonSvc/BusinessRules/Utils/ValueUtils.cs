@@ -1,10 +1,10 @@
-﻿using PersonSvc.BusinessService.Interfaces;
+﻿using PersonSvc.BusinessRules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonSvc.BusinessService.Utils
+namespace PersonSvc.BusinessRules.Utils
 {
     public sealed class ValueUtils: IValueUtils
     {

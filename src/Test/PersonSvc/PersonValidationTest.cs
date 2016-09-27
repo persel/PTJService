@@ -1,7 +1,7 @@
 ﻿
-using PersonSvc.BusinessService;
-using PersonSvc.BusinessService.Utils;
-using PTJ.Base.BusinessRules.ViewModels;
+using PersonSvc.BusinessRules;
+using PersonSvc.BusinessRules.Utils;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using System;
 using Xunit;

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PersonSvc.BusinessService.Interfaces;
+using PersonSvc.BusinessRules.Interfaces;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
 
-namespace PersonSvc.BusinessService
+namespace PersonSvc.BusinessRules
 {
     public class BackendCode : IBackend
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AdressSvc.BusinessRules.Interfaces;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.AdressSvc;
 

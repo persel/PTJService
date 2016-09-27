@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.AdressSvc;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
 

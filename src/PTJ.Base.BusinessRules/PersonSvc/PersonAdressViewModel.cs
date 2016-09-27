@@ -4,7 +4,7 @@ using PTJ.DataLayer.Models;
 using System.Collections.Generic;
 
 
-namespace PTJ.Base.BusinessRules.ViewModels
+namespace PTJ.Base.BusinessRules.PersonSvc
 {
     public class PersonAdressViewModel : IViewModel<PersonAdressViewModel>
     {

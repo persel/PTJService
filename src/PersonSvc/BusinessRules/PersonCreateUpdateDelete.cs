@@ -4,11 +4,11 @@ using System.Linq;
 using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
-using PTJ.Base.BusinessRules.ViewModels;
-using PersonSvc.BusinessService.Interfaces;
+using PTJ.Base.BusinessRules.PersonSvc;
+using PersonSvc.BusinessRules.Interfaces;
 //using PTJ.Message;
 
-namespace PersonSvc.BusinessService
+namespace PersonSvc.BusinessRules
 {
     public class PersonCreateUpdateDelete : IPersonCreateUpdateDelete //ICreateUpdateDelete<Person>
     {

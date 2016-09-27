@@ -1,5 +1,5 @@
 ﻿using PTJ.Base.BusinessRules.AdressSvc;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
 

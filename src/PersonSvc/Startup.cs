@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PTJ.DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
-using PersonSvc.BusinessService.Interfaces;
-using PersonSvc.BusinessService;
+using PersonSvc.BusinessRules.Interfaces;
+using PersonSvc.BusinessRules;
 
 namespace PersonSvc
 {

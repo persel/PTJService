@@ -1,10 +1,10 @@
-﻿using PTJ.Base.BusinessRules.ViewModels;
+﻿using PTJ.Base.BusinessRules.PersonSvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonSvc.BusinessService.Interfaces
+namespace PersonSvc.BusinessRules.Interfaces
 {
     public interface IPersonValidation
     {

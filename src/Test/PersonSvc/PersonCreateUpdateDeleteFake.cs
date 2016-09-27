@@ -1,9 +1,9 @@
-﻿using PersonSvc.BusinessService.Interfaces;
+﻿using PersonSvc.BusinessRules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 
 namespace Test.PersonSvc

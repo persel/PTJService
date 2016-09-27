@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
-using PersonSvc.BusinessService;
-using PersonSvc.BusinessService.Interfaces;
-using PTJ.Base.BusinessRules.ViewModels;
+using PersonSvc.BusinessRules;
+using PersonSvc.BusinessRules.Interfaces;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
-using PersonSvc.BusinessService.Utils;
+using PersonSvc.BusinessRules.Utils;
 
 namespace PersonSvc.Controllers
 {

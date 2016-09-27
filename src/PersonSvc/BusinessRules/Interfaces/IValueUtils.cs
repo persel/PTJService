@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonSvc.BusinessService.Interfaces
+namespace PersonSvc.BusinessRules.Interfaces
 {
     public interface IValueUtils
     {

@@ -1,13 +1,13 @@
-﻿using PersonSvc.BusinessService.Interfaces;
+﻿using PersonSvc.BusinessRules.Interfaces;
 using PTJ.Base.BusinessRules.Interfaces;
-using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonSvc.BusinessService
+namespace PersonSvc.BusinessRules
 {
     public class PersonValidation : IPersonValidation
     {
