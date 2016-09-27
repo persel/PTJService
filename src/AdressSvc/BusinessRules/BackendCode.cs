@@ -29,12 +29,12 @@ namespace AdressSvc.BusinessRules
             throw new NotImplementedException();
         }
 
-        public Response<AdressViewModel> UpdateAdress(PersonViewModel model)
+        public Response<AdressViewModel> UpdateAdress(AdressViewModel model)
         {
             throw new NotImplementedException();
         }
 
-        public Response<AdressViewModel> InsertAdress(PersonViewModel model)
+        public Response<AdressViewModel> InsertAdress(AdressViewModel model)
         {
             throw new NotImplementedException();
         }

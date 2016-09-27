@@ -9,9 +9,9 @@ namespace AdressSvc.BusinessRules.Interfaces
     {
         Response<AdressViewModel> GetByPersnr(long persnr);
 
-        Response<AdressViewModel> UpdateAdress(PersonViewModel model);
+        Response<AdressViewModel> UpdateAdress(AdressViewModel model);
 
-        Response<AdressViewModel> InsertAdress(PersonViewModel model);
+        Response<AdressViewModel> InsertAdress(AdressViewModel model);
 
         Response<AdressViewModel> DeleteAdress(long persnr);
 
