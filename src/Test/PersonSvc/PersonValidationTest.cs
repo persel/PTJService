@@ -6,7 +6,7 @@ using PTJ.DataLayer.Models;
 using System;
 using Xunit;
 
-namespace Test
+namespace Test.PersonSvc
 {
     public class PersonValidationTest
     {

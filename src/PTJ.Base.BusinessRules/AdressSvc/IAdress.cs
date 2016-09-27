@@ -6,7 +6,7 @@ using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
 
-namespace PTJ.Base.BusinessRules.Interfaces
+namespace PTJ.Base.BusinessRules.AdressSvc
 {
     interface IAdress
     {

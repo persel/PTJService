@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
+using PTJ.Base.BusinessRules.AdressSvc;
 
 namespace PTJ.Base.BusinessRules.Code
 {
@@ -25,9 +26,9 @@ namespace PTJ.Base.BusinessRules.Code
             throw new NotImplementedException();
         }
 
-        public List<PersonViewModel> GetPersonByPersnr(long persnr)
+        public List<PersonAdressViewModel> GetPersonByPersnr(long persnr)
         {
-            List<PersonViewModel> persList = new List<PersonViewModel>();
+            List<PersonAdressViewModel> persList = new List<PersonAdressViewModel>();
             var persnrStr = persnr.ToString();
 
             var personDb = (from p in db.Person
@@ -38,7 +39,7 @@ namespace PTJ.Base.BusinessRules.Code
 
             foreach (var person in personDb)
             {
-                PersonViewModel model = new PersonViewModel();
+                PersonAdressViewModel model = new PersonAdressViewModel();
                 model.Person = person;
                 persList.Add(model);
             }
@@ -123,7 +124,7 @@ namespace PTJ.Base.BusinessRules.Code
             foreach (var item in adrList)
             {
                 var adrvm = ac.GetByAdressId(item.Id);
-                model.Adress.Add(adrvm[0]);
+                //model.Adress.Add(adrvm[0]);
             }
 
             lst.Add(model);

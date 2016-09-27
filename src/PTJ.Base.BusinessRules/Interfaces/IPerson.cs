@@ -12,7 +12,7 @@ namespace PTJ.Base.BusinessRules.Interfaces
      
         List<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
 
-        List<PersonViewModel> GetPersonByPersnr(long persnr);
+        List<PersonAdressViewModel> GetPersonByPersnr(long persnr);
 
         List<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
 

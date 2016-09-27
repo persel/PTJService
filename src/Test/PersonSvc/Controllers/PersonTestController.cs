@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Test.Controllers
+namespace Test.PersonSvc.Controllers
 {
    
     public class PersonTestController
@@ -56,7 +56,6 @@ namespace Test.Controllers
             };
             list.Add(p2);
 
-
             return list;
 
         }
@@ -81,9 +80,8 @@ namespace Test.Controllers
 
                 context.SaveChanges();
 
-
-                PersonCode pc = new PersonCode(context);
-                PersonController controller = new PersonController(context);
+                PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
+                PersonController controller = new PersonController(context, crudFake);
 
                 var response = controller.GetByPersnr(12345);
 
@@ -119,15 +117,47 @@ namespace Test.Controllers
 
                 PersonCode pc = new PersonCode(context);
                 PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
-                //PersonController controller = new PersonController(context, crudFake);
+                PersonController controller = new PersonController(context, crudFake);
                 
-                //var response = controller.Create(PVmodel);
+                var response = controller.Create(PVmodel);
 
-                //Assert.True(response.success == "true");
+                Assert.True(response.success == "true");
+            }
+
+        }
+
+        [Theory]
+        [InlineData("Per")]
+        [InlineData("Nisse")]
+        [InlineData("qsd1234")]
+        public void CreateTestDiffFirstName(string value)
+        {
+
+            var options = CreateNewContextOptions();
+
+            // Run the test against one instance of the context
+            using (var context = new ModelDbContext(options))
+            {
+
+                PersonViewModel PVmodel = new PersonViewModel();
+                //String str = "";
+
+                PVmodel.Person = new Person()
+                {
+                    PersonNummer = "12345",
+                    ForNamn = value,
+                    EfterNamn = "Nilsson"
+                };
 
 
-                Assert.True(true);
+                PersonCode pc = new PersonCode(context);
+                PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
+                PersonController controller = new PersonController(context, crudFake);
 
+                var response = controller.Create(PVmodel);
+
+                Assert.True(response.success == "true");
+       
             }
 
         }

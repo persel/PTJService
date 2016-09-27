@@ -7,7 +7,7 @@ using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
 
-namespace PTJ.Base.BusinessRules.Code
+namespace PTJ.Base.BusinessRules.AdressSvc
 {
     public class AdressCode : IAdress
     {

@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PTJ.DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
-
+using PersonSvc.BusinessService.Interfaces;
+using PersonSvc.BusinessService;
 
 namespace PersonSvc
 {
@@ -34,6 +35,8 @@ namespace PersonSvc
             services.AddDbContext<ModelDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                      
             services.AddMvc();
+
+            services.AddScoped<IPersonCreateUpdateDelete, PersonCreateUpdateDelete>();
 
             services.AddSwaggerGen();
         }

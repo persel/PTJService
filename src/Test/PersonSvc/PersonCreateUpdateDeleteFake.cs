@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PTJ.Base.BusinessRules.ViewModels;
+using PTJ.DataLayer.Models;
 
-namespace Test
+namespace Test.PersonSvc
 {
     public class PersonCreateUpdateDeleteFake : IPersonCreateUpdateDelete
     {
@@ -16,6 +17,11 @@ namespace Test
 
         public bool CreatePerson(PersonViewModel model, ref string errorMsg)
         {
+            Person p = new Person();
+
+
+            //context.Person.Add(p);
+
             return true;
         }
 

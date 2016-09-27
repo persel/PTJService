@@ -1,8 +1,9 @@
-﻿using PTJ.Base.BusinessRules.ViewModels;
+﻿using PTJ.Base.BusinessRules.AdressSvc;
+using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
 
-namespace AdressSvc.BusinessService.Interfaces
+namespace AdressSvc.BusinessRules.Interfaces
 {
     interface IBackend
     {

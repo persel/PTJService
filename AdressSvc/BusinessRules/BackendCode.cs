@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AdressSvc.BusinessService.Interfaces;
+using AdressSvc.BusinessRules.Interfaces;
 using PTJ.Message;
 using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.ViewModels;
 using PTJ.Base.BusinessRules.Code;
+using PTJ.Base.BusinessRules.AdressSvc;
 
-namespace AdressSvc.BusinessService
+namespace AdressSvc.BusinessRules
 {
     public class BackendCode : IBackend
     {

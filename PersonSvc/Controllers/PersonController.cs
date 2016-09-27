@@ -33,43 +33,29 @@ namespace PersonSvc.Controllers
         private readonly ModelDbContext db;
 
 
-        public PersonController(ModelDbContext context)
+        public PersonController(ModelDbContext context, IPersonCreateUpdateDelete _crud)
         {
+
             db = context;
+            crud = _crud;
             pc = new PersonCode(db);
-            crud = new PersonCreateUpdateDelete(db);
-            valueUtils = new ValueUtils(); 
+            valueUtils = new ValueUtils();
             validate = new PersonValidation(valueUtils);
-           
-            backend = new BackendCode(crud,pc, validate);
+            backend = new BackendCode(crud, pc, validate);
         }
 
 
-
-        //public PersonController(ModelDbContext context, IPersonCreateUpdateDelete _crud)
-        //{
-
-        //    db = context;
-        //    pc = new PersonCode(db);
-        //    crud = _crud;
-        //    valueUtils = new ValueUtils();
-        //    validate = new PersonValidation(valueUtils);
-
-        //    backend = new BackendCode(crud, pc, validate);
-        //}
-
-
         [HttpGet("GetByPersnr/{persnr}")]
-        public Response<PersonViewModel> GetByPersnr(long persnr)
+        public Response<PersonAdressViewModel> GetByPersnr(long persnr)
         {
             return backend.GetByPersnr(persnr);
         }
 
         // POST api/values
         [HttpPost]
-        public Response<PersonViewModel> Create([FromBody] PersonViewModel model)
+        public Response<PersonAdressViewModel> Create([FromBody] PersonViewModel model)
         {
-            Response<PersonViewModel> result = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> result = new Response<PersonAdressViewModel>();
             if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
             {
                 result = backend.CreatePerson(model);
@@ -85,9 +71,9 @@ namespace PersonSvc.Controllers
 
 
         [HttpPut]
-        public Response<PersonViewModel> UpdatePers([FromBody] PersonViewModel model)
+        public Response<PersonAdressViewModel> UpdatePers([FromBody] PersonViewModel model)
         {
-            Response<PersonViewModel> result = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> result = new Response<PersonAdressViewModel>();
             if (model.Person.Id != 0 && !String.IsNullOrEmpty(model.Person.PersonNummer) && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
             {
                 result = backend.UpdatePerson(model);
@@ -104,9 +90,9 @@ namespace PersonSvc.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{persnr}")]
-        public Response<PersonViewModel> Delete(long persnr)
+        public Response<PersonAdressViewModel> Delete(long persnr)
         {
-            Response<PersonViewModel> result = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> result = new Response<PersonAdressViewModel>();
 
             if (persnr != 0)
             {

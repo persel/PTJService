@@ -25,23 +25,15 @@ namespace PersonSvc.BusinessService
             validate = _validate;
         }
 
-        //public BackendCode(IApplicationDbContext _db, IPersonCreateUpdateDelete _crud, IPerson _pc)
-        //{
-        //    IApplicationDbContext db1;
-        //    db1 = _db;
-        //    dbUtils = new DbUtils(db);
-        //    pc = _pc;
-        //    crud = _crud;
-        //}
 
-        public Response<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
+        public Response<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
             throw new NotImplementedException();
         }
 
-        public Response<PersonViewModel> GetByPersnr(long persnr)
+        public Response<PersonAdressViewModel> GetByPersnr(long persnr)
         {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
 
             try
             {
@@ -62,9 +54,9 @@ namespace PersonSvc.BusinessService
         }
 
 
-        public Response<PersonViewModel> CreatePerson(PersonViewModel model)
+        public Response<PersonAdressViewModel> CreatePerson(PersonViewModel model)
         {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
 
           
 
@@ -127,10 +119,10 @@ namespace PersonSvc.BusinessService
             return r;
         }
 
-        public Response<PersonViewModel> UpdatePerson(PersonViewModel model)
+        public Response<PersonAdressViewModel> UpdatePerson(PersonViewModel model)
         {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
-            List<PersonViewModel> persList = new List<PersonViewModel>();
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+           
 
             string errorMsg = String.Empty;
             if (crud.UpdatePerson(model, ref errorMsg))
@@ -151,9 +143,9 @@ namespace PersonSvc.BusinessService
             return r;
         }
 
-        public Response<PersonViewModel> DeletePerson(long persnr)
+        public Response<PersonAdressViewModel> DeletePerson(long persnr)
         {
-            Response<PersonViewModel> r = new Response<PersonViewModel>();
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
             string errorMsg = String.Empty;
             if (crud.DeletePerson(persnr, ref errorMsg))
             {
