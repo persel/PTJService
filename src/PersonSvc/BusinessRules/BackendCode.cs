@@ -8,6 +8,7 @@ using PTJ.DataLayer.Models;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
+using System.Diagnostics;
 
 namespace PersonSvc.BusinessRules
 {
@@ -28,18 +29,34 @@ namespace PersonSvc.BusinessRules
 
         public Response<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
-            throw new NotImplementedException();
+            var watch = Stopwatch.StartNew();
+            // the code that you want to measure comes here
+           
+            Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+            r.result = pc.GetByKstnr(kstnr, page, limit);
+            r.success = "true";
+            r.message = "Ok";
+            r.total = r.result.Count();
+
+            watch.Stop();
+           
+
+            r.responsetime = watch.ElapsedMilliseconds.ToString();
+            r.time = DateTime.Now.ToString();
+
+            return r;
         }
 
         public Response<PersonAdressViewModel> GetByPersnr(long persnr)
         {
+            var watch = Stopwatch.StartNew();
             Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
 
             try
             {
                 r.result = pc.GetPersonByPersnr(persnr);
                 r.success = "true";
-                r.message = "all ok";
+                r.message = "Ok";
                 r.total = r.result.Count();
             }
             catch (Exception e)
@@ -49,6 +66,10 @@ namespace PersonSvc.BusinessRules
                 r.message = e.Message;
                 r.total = 0;
             }
+
+            watch.Stop();
+            r.responsetime = watch.ElapsedMilliseconds.ToString();
+            r.time = DateTime.Now.ToString();
 
             return r;
         }

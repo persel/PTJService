@@ -44,9 +44,16 @@ namespace PersonSvc.Controllers
             backend = new BackendCode(crud, pc, validate);
         }
 
+        [HttpGet("GetByKstnr")]
+        public Response<PersonAdressViewModel> GetByKstnr( [RequiredFromQuery]string application, [RequiredFromQuery]string username, [RequiredFromQuery] int kstnr, [FromQuery] int page, [FromQuery] int limit)
+        {
+            //ToDO for now gets all
+            return backend.GetByKstnr(kstnr,1,1);
+        }
 
-        [HttpGet("GetByPersnr/{persnr}")]
-        public Response<PersonAdressViewModel> GetByPersnr(long persnr)
+
+        [HttpGet("GetByPersnr")]
+        public Response<PersonAdressViewModel> GetByPersnr([RequiredFromQuery]string application, [RequiredFromQuery]string username, [RequiredFromQuery]long persnr)
         {
             return backend.GetByPersnr(persnr);
         }

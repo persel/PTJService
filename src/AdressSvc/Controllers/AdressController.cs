@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PTJ.DataLayer.Models;
+using AdressSvc.BusinessRules.Interfaces;
+using AdressSvc.BusinessRules;
+using PTJ.Base.BusinessRules.AdressSvc;
+using PTJ.Message;
 
 namespace AdressSvc.Controllers
 {
@@ -19,10 +23,12 @@ namespace AdressSvc.Controllers
     public class AdressController : Controller
     {
         private ModelDbContext db;
+        private IBackend backend;
 
         public AdressController(ModelDbContext context)
         {
             db = context;
+            backend = new BackendCode(db);
         }
 
         // GET api/values
@@ -38,9 +44,15 @@ namespace AdressSvc.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Response<AdressViewModel> Get(int id)
         {
-            return "value";
+            return backend.GetByAdressId(id);  
+        }
+
+        [HttpGet("GetByPersnr/{persnr}")]
+        public Response<AdressViewModel> GetByPersnr(long persnr)
+        {
+            return backend.GetByPersnr(persnr);
         }
 
         // POST api/values

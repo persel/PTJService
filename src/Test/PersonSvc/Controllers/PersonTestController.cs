@@ -83,11 +83,11 @@ namespace Test.PersonSvc.Controllers
                 PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
                 PersonController controller = new PersonController(context, crudFake);
 
-                var response = controller.GetByPersnr(12345);
+                var response = controller.GetByPersnr("min","seu,",12345);
 
                 Assert.True(response.success == "true");
 
-                Assert.True(response.result.First().Person.ForNamn == "Per");
+                Assert.True(response.result.First().ForNamn == "Per");
 
             }
 

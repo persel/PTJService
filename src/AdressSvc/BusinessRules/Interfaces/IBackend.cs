@@ -7,6 +7,8 @@ namespace AdressSvc.BusinessRules.Interfaces
 {
     interface IBackend
     {
+        Response<AdressViewModel> GetByAdressId(long persnr);
+
         Response<AdressViewModel> GetByPersnr(long persnr);
 
         Response<AdressViewModel> UpdateAdress(AdressViewModel model);

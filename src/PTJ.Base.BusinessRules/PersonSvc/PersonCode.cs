@@ -21,9 +21,11 @@ namespace PTJ.Base.BusinessRules.PersonSvc
             ac = new AdressCode(db);
         }
 
-        public List<PersonViewModel> GetByKstnr(int kstnr, int page, int limit)
+        public List<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit)
         {
-            throw new NotImplementedException();
+            var personDb = (from p in db.Person select p).ToList();
+
+            return this.CreatePersonViewModelList(personDb);
         }
 
         public List<PersonAdressViewModel> GetPersonByPersnr(long persnr)
@@ -35,20 +37,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
                             where p.PersonNummer == persnrStr
                             select p).ToList();
 
-            
-
-            foreach (var person in personDb)
-            {
-                PersonAdressViewModel model = new PersonAdressViewModel();
-                model.Person = person;
-                persList.Add(model);
-            }
-
-            //model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
-            //model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
-            //model.PersonKonsult = GetPersonKonsult(personDb.Id);
-            //model.PersonPatient = GetPersonPatient(personDb.Id);
-            //model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
+            persList = this.CreatePersonViewModelList(personDb);
 
             return persList;
         }
@@ -93,42 +82,54 @@ namespace PTJ.Base.BusinessRules.PersonSvc
             throw new NotImplementedException();
         }
 
-        public List<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr)
+        private List<PersonAdressViewModel> CreatePersonViewModelList(List<Person> _personList)
         {
-            List<PersonAdressViewModel> lst = new List<PersonAdressViewModel>();
-            var persnrStr = persnr.ToString();
+            List<PersonAdressViewModel> viewModelList = new List<PersonAdressViewModel>();
 
-            var personDb = (from p in db.Person
-                            where p.PersonNummer == persnrStr
-                            select p).FirstOrDefault();
-
-            PersonAdressViewModel model = new PersonAdressViewModel();
-            AdressViewModel adrModel = new AdressViewModel();
-
-            model.Person = personDb;
-            //model.PersonAnnanPerson = GetPersonAnnanPerson(personDb.Id);
-            //model.PersonAnstalld = GetPersonAnstalld(personDb.Id);
-            //model.PersonKonsult = GetPersonKonsult(personDb.Id);
-            //model.PersonPatient = GetPersonPatient(personDb.Id);
-            //model.PersonSjukHalsovardsPersonal = GetPersonSjukHalsovardsPersonal(personDb.Id);
-            //model.Adress.Add(aList);
-
-            //Get adresses
-            List<PersonAdress> adrList = new List<PersonAdress>();
-
-            //Läs id:n för personens adresser
-            adrList = (from pa in db.PersonAdress
-                           where pa.PersonFkid == personDb.Id
-                           select pa).ToList();
-
-            foreach (var item in adrList)
+            foreach (var person in _personList)
             {
-                var adrvm = ac.GetByAdressId(item.Id);
-                //model.Adress.Add(adrvm[0]);
+                PersonAdressViewModel m = new PersonAdressViewModel();
+                m.Id = person.Id;
+                m.ForNamn = person.ForNamn;
+                m.MellanNamn = person.MellanNamn;
+                m.EfterNamn = person.EfterNamn;
+                m.PersonNummer = person.PersonNummer;
+                m.SkapadDatum = person.SkapadDatum.ToString("yyyy-mm-dd");
+
+
+                var employed = (from p in db.PersonAnstalld
+                                where p.PersonFkid == person.Id
+                                select p).ToList();
+
+                if (employed != null && employed.Count > 0)
+                {
+                    m.Anstalld = true;
+                    m.AnstallDatum = employed.First().SkapadDatum.ToString("yyyy-mm-dd");
+                }
+
+                var consult = (from p in db.PersonKonsult
+                               where p.PersonFkid == person.Id
+                               select p).ToList();
+
+                if (consult != null && consult.Count > 0)
+                {
+                    m.Konsult = true;
+                    m.KonsultDatum = consult.First().SkapadDatum.ToString("yyyy-mm-dd");
+                }
+
+                long n;
+                bool isNumeric = Int64.TryParse(person.PersonNummer, out n);
+                if (isNumeric)
+                {
+                    m.Adress = ac.GetByPersonId(n);
+                    viewModelList.Add(m);
+                }
+             
             }
 
-            lst.Add(model);
-            return lst;
+            return viewModelList;
         }
+
+
     }
 }

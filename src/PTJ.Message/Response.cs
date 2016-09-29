@@ -20,9 +20,9 @@ namespace PTJ.Message
 
         public int page { get; set; }
 
-        public int responsetime { get; set; }
+        public string responsetime { get; set; }
 
-        public int time { get; set; }
+        public string time { get; set; }
 
         public List<T> result { get; set; }
 

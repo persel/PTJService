@@ -7,15 +7,28 @@ namespace PTJ.Base.BusinessRules.AdressSvc
 {
     public class AdressViewModel 
     {
-        public Adress Adress { get; set; }
 
-        public GatuAdress GatuAdress { get; set; }
+        public long Id { get; set; }
 
-        public Mail Mail { get; set; }
+        public string GatuAdress { get; set; }
 
-        public Telefon Telefon { get; set; }
+        public string Postnummer { get; set; }
 
-        public AdressVariant Adressvariant { get; set; }
+        public string Stad { get; set; }
+
+        public string Land { get; set; }
+
+        public string Mail { get; set; }
+
+        public string Telefon { get; set; }
+
+        public string AdressvariantText { get; set; }
+
+        public long Adressvariant { get; set; }
+
+        public string AdressTypText { get; set; }
+
+        public long AdressTyp { get; set; }
     }
 }
 

@@ -24,10 +24,32 @@ namespace AdressSvc.BusinessRules
             ac = new AdressCode(db);
         }
 
+        public Response<AdressViewModel> GetByAdressId(long id)
+        {
+            Response<AdressViewModel> result = new Response<AdressViewModel>();
+            List<AdressViewModel> lst = new List<AdressViewModel>();
+
+            var adress =  ac.GetByAdressId(id);
+            lst.Add(adress);
+            result.result = lst;
+
+            return result;
+           
+        }
+
+
         public Response<AdressViewModel> GetByPersnr(long persnr)
         {
-            throw new NotImplementedException();
+            Response<AdressViewModel> result = new Response<AdressViewModel>();
+
+            var adress = ac.GetByPersonId(persnr);
+            result.result = adress;
+            result.success = "true";
+            result.message = "Ok";
+
+            return result;
         }
+
 
         public Response<AdressViewModel> UpdateAdress(AdressViewModel model)
         {
@@ -77,5 +99,7 @@ namespace AdressSvc.BusinessRules
 
             return r;
         }
+
+    
     }
 }

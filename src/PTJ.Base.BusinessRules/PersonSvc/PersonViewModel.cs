@@ -7,6 +7,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
 {
     public class PersonViewModel
     {
+
         public Person Person { get; set; }
 
         public PersonAnnanPerson PersonAnnanPerson { get; set; }

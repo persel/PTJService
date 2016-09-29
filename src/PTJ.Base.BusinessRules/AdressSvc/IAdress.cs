@@ -10,7 +10,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
 {
     interface IAdress
     {
-        List<AdressViewModel> GetByAdressId(long id);
+        AdressViewModel GetByAdressId(long id);
 
         Mail GetMailAdress(long id);
 

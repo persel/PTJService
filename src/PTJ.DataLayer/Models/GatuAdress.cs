@@ -10,7 +10,7 @@ namespace PTJ.DataLayer.Models
     {
         [Key]
         public long Id { get; set; }
-        public long AdressFkid { get; set; }
+        public long Adress_Fkid { get; set; }
         public string AdressRad1 { get; set; }
         public string AdressRad2 { get; set; }
         public string AdressRad3 { get; set; }
@@ -23,6 +23,6 @@ namespace PTJ.DataLayer.Models
         public DateTime? UpdateradDatum { get; set; }
         public string UpdateradAv { get; set; }
 
-        public virtual Adress AdressFk { get; set; }
+        //public virtual Adress AdressFk { get; set; }
     }
 }

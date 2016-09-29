@@ -9,12 +9,12 @@ namespace PTJ.Base.BusinessRules.PersonSvc
 {
     public interface IPerson
     {
-     
-        List<PersonViewModel> GetByKstnr(int kstnr, int page, int limit);
+
+        List<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit);
 
         List<PersonAdressViewModel> GetPersonByPersnr(long persnr);
 
-        List<PersonAdressViewModel> GetPersonAdressByPersnr(long persnr);
+        
 
         /* *
          * Employee Or Consult
