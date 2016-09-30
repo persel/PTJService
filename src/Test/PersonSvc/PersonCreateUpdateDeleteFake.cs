@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
+using PersonSvc.ViewModels;
 
 namespace Test.PersonSvc
 {
@@ -15,7 +16,7 @@ namespace Test.PersonSvc
             return false;
         }
 
-        public bool CreatePerson(PersonViewModel model, ref string errorMsg)
+        public bool CreatePerson(PersonViewModelSave model, ref string errorMsg)
         {
             Person p = new Person();
 
@@ -30,7 +31,7 @@ namespace Test.PersonSvc
             throw new NotImplementedException();
         }
 
-        public bool UpdatePerson(PersonViewModel model, ref string errorMsg)
+        public bool UpdatePerson(PersonViewModelSave model, ref string errorMsg)
         {
             throw new NotImplementedException();
         }

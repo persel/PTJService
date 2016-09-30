@@ -9,6 +9,7 @@ using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
 using System.Diagnostics;
+using PersonSvc.ViewModels;
 
 namespace PersonSvc.BusinessRules
 {
@@ -27,7 +28,7 @@ namespace PersonSvc.BusinessRules
         }
 
 
-        public Response<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit)
+        public Response<PersonAdressViewModel> GetByKstnr(int kstnr, int page = 1, int limit = 50, bool workInformationOnly = true)
         {
             var watch = Stopwatch.StartNew();
             // the code that you want to measure comes here
@@ -47,14 +48,14 @@ namespace PersonSvc.BusinessRules
             return r;
         }
 
-        public Response<PersonAdressViewModel> GetByPersnr(long persnr)
+        public Response<PersonAdressViewModel> GetByPersnr(long persnr, bool workInformationOnly = true)
         {
             var watch = Stopwatch.StartNew();
             Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
 
             try
             {
-                r.result = pc.GetPersonByPersnr(persnr);
+                r.result = pc.GetPersonByPersnr(persnr, workInformationOnly);
                 r.success = "true";
                 r.message = "Ok";
                 r.total = r.result.Count();
@@ -75,7 +76,7 @@ namespace PersonSvc.BusinessRules
         }
 
 
-        public Response<PersonAdressViewModel> CreatePerson(PersonViewModel model)
+        public Response<PersonAdressViewModel> CreatePerson(PersonViewModelSave model)
         {
             Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
 
@@ -90,7 +91,7 @@ namespace PersonSvc.BusinessRules
                 //1. Check all parameters are ok
                 if (validate.CheckCreateValues(model, ref validationMsg))
                 {
-                    if (crud.AllreadyExist(model.Person.PersonNummer, ref validationMsg))
+                    if (crud.AllreadyExist(model.PersonNummer, ref validationMsg))
                     {
                         isValidateOk = false;
                     }
@@ -105,12 +106,12 @@ namespace PersonSvc.BusinessRules
                 {
                     if (crud.CreatePerson(model, ref errorMsg))
                     {
-                        long PersonNummer = Convert.ToInt64(model.Person.PersonNummer);
+                        long PersonNummer = Convert.ToInt64(model.PersonNummer);
 
                         //if all is ok return the newly created person in the response
                         r.success = "true";
                         r.message = "all ok";
-                        r.result = pc.GetPersonByPersnr(PersonNummer);
+                        r.result = pc.GetPersonByPersnr(persnr: PersonNummer, workInformationOnly: false );
                         r.total = r.result.Count();
                     }
                     else
@@ -140,7 +141,7 @@ namespace PersonSvc.BusinessRules
             return r;
         }
 
-        public Response<PersonAdressViewModel> UpdatePerson(PersonViewModel model)
+        public Response<PersonAdressViewModel> UpdatePerson(PersonViewModelSave model)
         {
             Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
            
@@ -148,10 +149,10 @@ namespace PersonSvc.BusinessRules
             string errorMsg = String.Empty;
             if (crud.UpdatePerson(model, ref errorMsg))
             {
-                long PersonNummer = Convert.ToInt64(model.Person.PersonNummer);
+                long PersonNummer = Convert.ToInt64(model.PersonNummer);
                 r.success = "true";
                 r.message = "Person {persnr} updated";
-                r.result = pc.GetPersonByPersnr(PersonNummer);
+                r.result = pc.GetPersonByPersnr(PersonNummer,false);
                 r.total = r.result.Count();
             }
             else

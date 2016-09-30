@@ -6,6 +6,7 @@ using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PersonSvc.BusinessRules.Interfaces;
+using PersonSvc.ViewModels;
 //using PTJ.Message;
 
 namespace PersonSvc.BusinessRules
@@ -26,7 +27,7 @@ namespace PersonSvc.BusinessRules
         public bool AllreadyExist(string entityId, ref string validationMsg)
         {
             var allreadyExist = (from p in db.Person
-                                 where p.PersonNummer == entityId
+                                 where p.PersonNummer == entityId 
                                  select p.PersonNummer).FirstOrDefault();
 
             if (String.IsNullOrEmpty(allreadyExist))
@@ -41,104 +42,118 @@ namespace PersonSvc.BusinessRules
         }
 
 
-        public bool CreatePerson(PersonViewModel model, ref string errorMsg)
+        public bool CreatePerson(PersonViewModelSave model, ref string errorMsg)
         {
-           
-            using (db)
+            var transaction = db.Database.BeginTransaction();
+
+            try
             {
-                using (var transaction = db.Database.BeginTransaction())
+                var allreadyExist = (from p in db.Person
+                                     where p.PersonNummer == model.PersonNummer
+                                     select p.PersonNummer).FirstOrDefault();
+
+                if (String.IsNullOrEmpty(allreadyExist))
                 {
-                    try
+                    Person newPerson = new Person();
+                    newPerson.Id = dbUtils.GetNewDbId("Person");
+                    newPerson.PersonNummer = model.PersonNummer;
+                    newPerson.ForNamn = model.ForNamn;
+                    newPerson.MellanNamn = model.MellanNamn;
+                    newPerson.EfterNamn = model.EfterNamn;
+                    newPerson.SkapadDatum = DateTime.Now;
+                    newPerson.UppdateradAv = "mah";// model.UppdateradAvAlias;
+
+                    db.Person.Add(newPerson);
+                    db.SaveChanges();
+
+                    //Get id 
+                    var dbPersonId = newPerson.Id;
+
+                    //Save person type
+                    if (model.PersonAnnanPerson)
                     {
-                        var allreadyExist = (from p in db.Person
-                                             where p.PersonNummer == model.Person.PersonNummer
-                                             select p.PersonNummer).FirstOrDefault();
+                        PersonAnnanPerson newAnnanPerson = new PersonAnnanPerson();
 
-                        if (String.IsNullOrEmpty(allreadyExist))
-                        {
-                           
-                            model.Person.Id = dbUtils.GetNewDbId("Person");
-                            model.Person.SkapadDatum = DateTime.Now;
-                            //model.Person.UppdateradDatum = DateTime.Now;
-                            model.Person.UppdateradAv = "mah";
-                            db.Person.Add(model.Person);
-                            db.SaveChanges();
+                        newAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
+                        newAnnanPerson.PersonFkid = newPerson.Id;
+                        newAnnanPerson.AnnanPersonFkid = 9999;
+                        newAnnanPerson.SkapadDatum = DateTime.Now;
+                        newAnnanPerson.UpdateradAv = "mah";
 
-                            //Get id 
-                            var dbPersonId = model.Person.Id;
-
-                            //Save person type
-                            if (model.PersonAnnanPerson != null)
-                            {
-                                model.PersonAnnanPerson.PersonFkid = model.Person.Id;
-                                model.PersonAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
-                                model.PersonAnnanPerson.SkapadDatum = DateTime.Now;
-                                model.PersonAnnanPerson.UpdateradDatum = DateTime.Now;
-                                db.PersonAnnanPerson.Add(model.PersonAnnanPerson);
-                                db.SaveChanges();
-                            }
-
-                            if (model.PersonAnstalld != null)
-                            {
-                                model.PersonAnstalld.PersonFkid = model.Person.Id;
-                                model.PersonAnstalld.Id = dbUtils.GetNewDbId("PersonAnstalld");
-                                model.PersonAnstalld.SkapadDatum = DateTime.Now;
-                                model.PersonAnstalld.UpdateradDatum = DateTime.Now;
-                                db.PersonAnstalld.Add(model.PersonAnstalld);
-                                db.SaveChanges();
-                            }
-
-                            if (model.PersonKonsult != null)
-                            {
-                                model.PersonKonsult.PersonFkid = model.Person.Id;
-                                model.PersonKonsult.Id = dbUtils.GetNewDbId("PersonKonsult");
-                                model.PersonKonsult.SkapadDatum = DateTime.Now;
-                                model.PersonKonsult.UpdateradDatum = DateTime.Now;
-                                db.PersonKonsult.Add(model.PersonKonsult);
-                                db.SaveChanges();
-                            }
-
-                            if (model.PersonPatient != null)
-                            {
-                                model.PersonPatient.PersonFkid = model.Person.Id;
-                                model.PersonPatient.Id = dbUtils.GetNewDbId("PersonPatient");
-                                model.PersonPatient.SkapadDatum = DateTime.Now;
-                                model.PersonPatient.UpdateradDatum = DateTime.Now;
-                                db.PersonPatient.Add(model.PersonPatient);
-                                db.SaveChanges();
-                            }
-
-                            if (model.PersonSjukHalsovardsPersonal != null)
-                            {
-                                model.PersonSjukHalsovardsPersonal.PersonFkid = model.Person.Id;
-                                model.PersonSjukHalsovardsPersonal.Id =
-                                dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
-                                model.PersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
-                                model.PersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
-                                db.PersonSjukHalsovardsPersonal.Add(model.PersonSjukHalsovardsPersonal);
-                                db.SaveChanges();
-                            }
-                        }
-
-                        // Commit transaction if all commands succeed, transaction will auto-rollback
-                        // when disposed if either commands fails
-                        transaction.Commit();
-
-                        return true;
-                   
+                        db.PersonAnnanPerson.Add(newAnnanPerson);
+                        db.SaveChanges();
                     }
-                    catch (Exception e)
+
+                    if (model.PersonAnstalld)
                     {
-                        errorMsg = e.Message;
-                        return false;
+                        PersonAnstalld newPersonAnstalld = new PersonAnstalld();
+
+                        newPersonAnstalld.PersonFkid = newPerson.Id;
+                        newPersonAnstalld.Id = dbUtils.GetNewDbId("PersonAnstalld");
+                        newPersonAnstalld.AnstalldFkid = 9999;
+                        newPersonAnstalld.SkapadDatum = DateTime.Now;
+                        newPersonAnstalld.UpdateradAv = "mah";
+                        db.PersonAnstalld.Add(newPersonAnstalld);
+                        db.SaveChanges();
+                    }
+
+                    if (model.PersonKonsult)
+                    {
+                        PersonKonsult newPersonKonsult = new PersonKonsult();
+                        newPersonKonsult.PersonFkid = newPerson.Id;
+                        newPersonKonsult.Id = dbUtils.GetNewDbId("PersonKonsult");
+                        newPersonKonsult.KonsultFkid = 9999;
+                        newPersonKonsult.UpdateradAv = "mah";
+                        newPersonKonsult.SkapadDatum = DateTime.Now;
+                        newPersonKonsult.UpdateradDatum = DateTime.Now;
+
+                        db.PersonKonsult.Add(newPersonKonsult);
+                        db.SaveChanges();
+                    }
+
+                    if (model.PersonPatient)
+                    {
+                        PersonPatient newPersonPatient = new PersonPatient();
+
+                        newPersonPatient.PersonFkid = newPerson.Id;
+                        newPersonPatient.Id = dbUtils.GetNewDbId("PersonPatient");
+                        newPersonPatient.PatientFkid = 9999;
+                        newPersonPatient.UpdateradAv = "mah";
+                        newPersonPatient.SkapadDatum = DateTime.Now;
+
+                        db.PersonPatient.Add(newPersonPatient);
+                        db.SaveChanges();
+                    }
+
+                    if (model.PersonSjukHalsovardsPersonal)
+                    {
+                        PersonSjukHalsovardsPersonal newPersonSjukHalsovardsPersonal = new PersonSjukHalsovardsPersonal();
+
+                        newPersonSjukHalsovardsPersonal.PersonFkid = newPerson.Id;
+                        newPersonSjukHalsovardsPersonal.Id = dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
+                        newPersonSjukHalsovardsPersonal.SjukHalsovardsPersonalFkid = 9999;
+                        newPersonSjukHalsovardsPersonal.UpdateradAv = "mah";
+                        newPersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
+                        newPersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
+
+                        db.PersonSjukHalsovardsPersonal.Add(newPersonSjukHalsovardsPersonal);
+                        db.SaveChanges();
                     }
                 }
+                transaction.Commit();
+
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                errorMsg = e.Message;
+                return false;
             }
 
-            
         }
 
-     
+
         public bool DeletePerson(long persnr, ref string errorMsg)
         {
             using (db)
@@ -172,7 +187,7 @@ namespace PersonSvc.BusinessRules
 
         }
 
-        public bool UpdatePerson(PersonViewModel model, ref string errorMsg)
+        public bool UpdatePerson(PersonViewModelSave model, ref string errorMsg)
         {
 
             using (db)
@@ -182,7 +197,7 @@ namespace PersonSvc.BusinessRules
                     try
                     {
                         var personDb = (from p in db.Person
-                                        where p.Id == model.Person.Id
+                                        where p.Id == model.Id
                                         select p).FirstOrDefault();
 
                         if (personDb != null)
@@ -201,11 +216,11 @@ namespace PersonSvc.BusinessRules
 
                             Person person = new Person();
                             person.Id = dbUtils.GetNewDbId("Person");
-                            person.ForNamn = model.Person.ForNamn;
-                            person.EfterNamn = model.Person.EfterNamn;
+                            person.ForNamn = model.ForNamn;
+                            person.EfterNamn = model.EfterNamn;
                           
                             //person.Username = model.Person.Username;
-                            person.PersonNummer = model.Person.PersonNummer;
+                            person.PersonNummer = model.PersonNummer;
                             person.SkapadDatum = DateTime.Now;
                             db.Person.Add(person);
                             db.SaveChanges();

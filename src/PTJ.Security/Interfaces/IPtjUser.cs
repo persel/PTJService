@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace PTJ.Security.Interfaces
 {
-    public interface IUser
+    public interface IPtjUser
     {
 
         bool IsAuthorised(string username);
+
+        bool OnlyReadWorkInformation(string username);
 
         bool CanUserRead(string username);
 

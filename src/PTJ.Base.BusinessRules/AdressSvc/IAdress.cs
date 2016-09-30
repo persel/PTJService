@@ -18,7 +18,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
 
         GatuAdress GetStreetAdress(long id);
 
-        List<AdressViewModel> GetByPersonId(long id);
+        List<AdressViewModel> GetByPersonId(long id, bool? workInformationOnly);
 
         List<AdressViewModel> GetByType(long id);
 

@@ -1,4 +1,5 @@
 ﻿using PersonSvc.BusinessRules.Interfaces;
+using PersonSvc.ViewModels;
 using PTJ.Base.BusinessRules.Interfaces;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
@@ -18,25 +19,25 @@ namespace PersonSvc.BusinessRules
             valueUtils = _valueUtils;
         }
 
-        public bool CheckCreateValues(PersonViewModel model, ref string validationMsg)
+        public bool CheckCreateValues(PersonViewModelSave model, ref string validationMsg)
         {
             bool validate = true;
           
-            if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
+            if (model.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.ForNamn) && !String.IsNullOrEmpty(model.EfterNamn))
             {
-                if(model.Person.PersonNummer.Length < 4 )
+                if(model.PersonNummer.Length < 4 )
                 {
                     validate = false;
                     validationMsg += "Not a valid PersonNummer:";
                 }
 
-                if (model.Person.ForNamn.Length < 2 )
+                if (model.ForNamn.Length < 2 )
                 {
                     validate = false;
                     validationMsg += " Not a valid ForNamn:";
                 }
 
-                if (model.Person.EfterNamn.Length < 2)
+                if (model.EfterNamn.Length < 2)
                 {
                     validate = false;
                     validationMsg += " Not a valid EfterNamn:";

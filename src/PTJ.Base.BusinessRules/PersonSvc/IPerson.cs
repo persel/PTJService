@@ -12,7 +12,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
 
         List<PersonAdressViewModel> GetByKstnr(int kstnr, int page, int limit);
 
-        List<PersonAdressViewModel> GetPersonByPersnr(long persnr);
+        List<PersonAdressViewModel> GetPersonByPersnr(long persnr, bool? workInformationOnly);
 
         
 

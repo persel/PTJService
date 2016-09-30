@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonSvc.BusinessRules;
 using PersonSvc.BusinessRules.Utils;
 using PersonSvc.Controllers;
+using PersonSvc.ViewModels;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
@@ -15,7 +16,7 @@ using Xunit;
 
 namespace Test.PersonSvc.Controllers
 {
-   
+
     public class PersonTestController
     {
 
@@ -68,7 +69,7 @@ namespace Test.PersonSvc.Controllers
             var options = CreateNewContextOptions();
 
             // Run the test against one instance of the context
-            using (var context = new  ModelDbContext(options))
+            using (var context = new ModelDbContext(options))
             {
 
                 List<Person> list = createData();
@@ -83,7 +84,7 @@ namespace Test.PersonSvc.Controllers
                 PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
                 PersonController controller = new PersonController(context, crudFake);
 
-                var response = controller.GetByPersnr("min","seu,",12345);
+                var response = controller.GetByPersnr("min", "pse,", 12345);
 
                 Assert.True(response.success == "true");
 
@@ -104,21 +105,16 @@ namespace Test.PersonSvc.Controllers
             using (var context = new ModelDbContext(options))
             {
 
-                PersonViewModel PVmodel = new PersonViewModel();
-                //String str = "";
+                PersonViewModelSave PVmodel = new PersonViewModelSave();
 
-                PVmodel.Person = new Person()
-                {
-                    PersonNummer = "12345",
-                    ForNamn = "Per",
-                    EfterNamn = "Nilsson"
-                };
-
+                PVmodel.PersonNummer = "12345";
+                PVmodel.ForNamn = "Per";
+                PVmodel.EfterNamn = "Nilsson";
 
                 PersonCode pc = new PersonCode(context);
                 PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
                 PersonController controller = new PersonController(context, crudFake);
-                
+
                 var response = controller.Create(PVmodel);
 
                 Assert.True(response.success == "true");
@@ -139,15 +135,11 @@ namespace Test.PersonSvc.Controllers
             using (var context = new ModelDbContext(options))
             {
 
-                PersonViewModel PVmodel = new PersonViewModel();
-                //String str = "";
+                PersonViewModelSave PVmodel = new PersonViewModelSave();
 
-                PVmodel.Person = new Person()
-                {
-                    PersonNummer = "12345",
-                    ForNamn = value,
-                    EfterNamn = "Nilsson"
-                };
+                PVmodel.PersonNummer = "12345";
+                PVmodel.ForNamn = value;
+                PVmodel.EfterNamn = "Nilsson";
 
 
                 PersonCode pc = new PersonCode(context);
@@ -157,7 +149,7 @@ namespace Test.PersonSvc.Controllers
                 var response = controller.Create(PVmodel);
 
                 Assert.True(response.success == "true");
-       
+
             }
 
         }

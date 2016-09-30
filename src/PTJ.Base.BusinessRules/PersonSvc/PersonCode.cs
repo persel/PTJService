@@ -28,8 +28,9 @@ namespace PTJ.Base.BusinessRules.PersonSvc
             return this.CreatePersonViewModelList(personDb);
         }
 
-        public List<PersonAdressViewModel> GetPersonByPersnr(long persnr)
+        public List<PersonAdressViewModel> GetPersonByPersnr(long persnr, bool? workInformationOnly = true)
         {
+            
             List<PersonAdressViewModel> persList = new List<PersonAdressViewModel>();
             var persnrStr = persnr.ToString();
 
@@ -37,7 +38,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
                             where p.PersonNummer == persnrStr
                             select p).ToList();
 
-            persList = this.CreatePersonViewModelList(personDb);
+            persList = this.CreatePersonViewModelList(personDb, workInformationOnly);
 
             return persList;
         }
@@ -82,7 +83,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
             throw new NotImplementedException();
         }
 
-        private List<PersonAdressViewModel> CreatePersonViewModelList(List<Person> _personList)
+        private List<PersonAdressViewModel> CreatePersonViewModelList(List<Person> _personList ,bool? workInformationOnly = true)
         {
             List<PersonAdressViewModel> viewModelList = new List<PersonAdressViewModel>();
 
@@ -121,7 +122,7 @@ namespace PTJ.Base.BusinessRules.PersonSvc
                 bool isNumeric = Int64.TryParse(person.PersonNummer, out n);
                 if (isNumeric)
                 {
-                    m.Adress = ac.GetByPersonId(n);
+                    m.Adress = ac.GetByPersonId(n, workInformationOnly);
                     viewModelList.Add(m);
                 }
              

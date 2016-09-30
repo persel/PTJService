@@ -7,12 +7,12 @@ namespace PTJ.Security.Interfaces
 {
     interface IApplication
     {
-        bool CanAppicationRead(int applicationId);
+        bool CanApplicationRead(int applicationId);
 
-        bool CanAppicationUpdate(int applicationId);
+        bool CanAppilcationUpdate(int applicationId);
 
-        bool CanAppicationCreate(int applicationId);
+        bool CanApplicationCreate(int applicationId);
 
-        bool CanAppicationDelete(int applicationId);
+        bool CanApplicationDelete(int applicationId);
     }
 }

@@ -11,6 +11,9 @@ using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.Base.BusinessRules.Code;
 using PTJ.Base.BusinessRules.Interfaces;
 using PersonSvc.BusinessRules.Utils;
+using PTJ.Security.Code;
+using PTJ.Security.Interfaces;
+using PersonSvc.ViewModels;
 
 namespace PersonSvc.Controllers
 {
@@ -30,6 +33,7 @@ namespace PersonSvc.Controllers
         private IBackend backend;
         private IPersonValidation validate;
         private IValueUtils valueUtils;
+        private IPtjUser user;
         private readonly ModelDbContext db;
 
 
@@ -38,32 +42,64 @@ namespace PersonSvc.Controllers
 
             db = context;
             crud = _crud;
-            pc = new PersonCode(db);
+            pc =  new PersonCode(db);
             valueUtils = new ValueUtils();
             validate = new PersonValidation(valueUtils);
             backend = new BackendCode(crud, pc, validate);
+            user = new PtjUser();
         }
 
         [HttpGet("GetByKstnr")]
         public Response<PersonAdressViewModel> GetByKstnr( [RequiredFromQuery]string application, [RequiredFromQuery]string username, [RequiredFromQuery] int kstnr, [FromQuery] int page, [FromQuery] int limit)
         {
             //ToDO for now gets all
-            return backend.GetByKstnr(kstnr,1,1);
+            if (user.IsAuthorised(username))
+            {
+                bool canOnlyReadWorkInformation = user.OnlyReadWorkInformation(username);
+                return backend.GetByKstnr(
+                    kstnr: kstnr, 
+                    page: page, 
+                    limit: limit,
+                    workInformationOnly: canOnlyReadWorkInformation
+                    );
+            }
+            else
+            {
+                Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+                r.success = "false";
+                r.message = "User Is not Authorise!, check permission for user " + username;
+                return r;
+            }
+           
         }
 
 
         [HttpGet("GetByPersnr")]
         public Response<PersonAdressViewModel> GetByPersnr([RequiredFromQuery]string application, [RequiredFromQuery]string username, [RequiredFromQuery]long persnr)
         {
-            return backend.GetByPersnr(persnr);
+            if (user.IsAuthorised(username))
+            {
+                bool canOnlyReadWorkInformation = user.OnlyReadWorkInformation(username);
+
+                return backend.GetByPersnr(persnr, canOnlyReadWorkInformation);
+               
+            }
+            else
+            {
+                Response<PersonAdressViewModel> r = new Response<PersonAdressViewModel>();
+                r.success = "false";
+                r.message = "User Is not Authorise!, check permission for user " + username;
+                return r;
+            }
+           
         }
 
         // POST api/values
         [HttpPost]
-        public Response<PersonAdressViewModel> Create([FromBody] PersonViewModel model)
+        public Response<PersonAdressViewModel> Create([FromBody] PersonViewModelSave model)
         {
             Response<PersonAdressViewModel> result = new Response<PersonAdressViewModel>();
-            if (model.Person.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
+            if (model.PersonNummer != String.Empty && !String.IsNullOrEmpty(model.ForNamn) && !String.IsNullOrEmpty(model.EfterNamn))
             {
                 result = backend.CreatePerson(model);
             }
@@ -78,10 +114,10 @@ namespace PersonSvc.Controllers
 
 
         [HttpPut]
-        public Response<PersonAdressViewModel> UpdatePers([FromBody] PersonViewModel model)
+        public Response<PersonAdressViewModel> UpdatePers([FromBody] PersonViewModelSave model)
         {
             Response<PersonAdressViewModel> result = new Response<PersonAdressViewModel>();
-            if (model.Person.Id != 0 && !String.IsNullOrEmpty(model.Person.PersonNummer) && !String.IsNullOrEmpty(model.Person.ForNamn) && !String.IsNullOrEmpty(model.Person.EfterNamn))
+            if (model.Id != 0 && !String.IsNullOrEmpty(model.PersonNummer) && !String.IsNullOrEmpty(model.ForNamn) && !String.IsNullOrEmpty(model.EfterNamn))
             {
                 result = backend.UpdatePerson(model);
             }

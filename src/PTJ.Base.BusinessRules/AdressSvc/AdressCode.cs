@@ -20,10 +20,10 @@ namespace PTJ.Base.BusinessRules.AdressSvc
         public AdressViewModel GetByAdressId(long id)
         {
             AdressViewModel model = new AdressViewModel();
+           
 
             try
             {
-
                 var adrDb = (from a in db.Adress
                              where a.Id == id
                              select a).FirstOrDefault();
@@ -77,7 +77,6 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                                  where v.Id == adrDb.AdressTyp_Fkid
                                  select v).FirstOrDefault();
 
-
                     if (typDb != null)
                     {
                         model.AdressTypText = typDb.Typ;
@@ -123,12 +122,25 @@ namespace PTJ.Base.BusinessRules.AdressSvc
             return streetAdrDb;
         }
 
-        public List<AdressViewModel> GetByPersonId(long persnr)
+        public List<AdressViewModel> GetByPersonId(long persnr, bool? workInformationOnly)
         {
             List<AdressViewModel> lst = new List<AdressViewModel>();
 
+            List<long> types;
+
+            if (workInformationOnly.Value)
+            {
+                types = new List<long> {2,7,9,11};
+            }
+            else
+            {
+                types = new List<long> {1,2,3,4,5,6,7,8,9,10,11,12};
+            }
+
+
             var personAdressId = (from pa in db.PersonAdress
-                                where pa.Person_Fkid == persnr
+                                  join a in db.Adress on pa.Adress_Fkid equals a.Id 
+                                where pa.Person_Fkid == persnr && types.Contains(a.AdressVariant_Fkid) 
                                 select pa.Adress_Fkid).ToList();
 
             if ( personAdressId != null )

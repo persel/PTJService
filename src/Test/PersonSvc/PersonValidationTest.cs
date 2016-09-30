@@ -1,6 +1,7 @@
 ﻿
 using PersonSvc.BusinessRules;
 using PersonSvc.BusinessRules.Utils;
+using PersonSvc.ViewModels;
 using PTJ.Base.BusinessRules.PersonSvc;
 using PTJ.DataLayer.Models;
 using System;
@@ -17,15 +18,14 @@ namespace Test.PersonSvc
             ValueUtils vu = new ValueUtils();
             PersonValidation pv = new PersonValidation(vu);
 
-            PersonViewModel PVmodel = new PersonViewModel();
+          
             String str = "";
 
-            PVmodel.Person = new Person()
-            {
-                PersonNummer = "122345",
-                ForNamn = "Per",
-                EfterNamn = "Nilsson"
-            };
+            PersonViewModelSave PVmodel = new PersonViewModelSave();
+
+            PVmodel.PersonNummer = "12345";
+            PVmodel.ForNamn = "Per";
+            PVmodel.EfterNamn = "Nilsson";
 
             Assert.True( pv.CheckCreateValues(PVmodel, ref str) == true );
 
@@ -37,16 +37,15 @@ namespace Test.PersonSvc
             ValueUtils vu = new ValueUtils();
             PersonValidation pv = new PersonValidation(vu);
 
-            PersonViewModel PVmodel = new PersonViewModel();
+            
             String str = "";
 
-            PVmodel.Person = new Person()
-            {
-                PersonNummer = "12",
-                ForNamn = "Per",
-                EfterNamn = "Nilsson"
-            };
-            
+            PersonViewModelSave PVmodel = new PersonViewModelSave();
+
+            PVmodel.PersonNummer = "12345";
+            PVmodel.ForNamn = "Per";
+            PVmodel.EfterNamn = "Nilsson";
+
             Assert.True(pv.CheckCreateValues(PVmodel, ref str) == false);
 
             Assert.True(str == "Not a valid PersonNummer:");
@@ -59,15 +58,14 @@ namespace Test.PersonSvc
             ValueUtils vu = new ValueUtils();
             PersonValidation pv = new PersonValidation(vu);
 
-            PersonViewModel PVmodel = new PersonViewModel();
+           
             String str = "";
 
-            PVmodel.Person = new Person()
-            {
-                PersonNummer = "12345678",
-                ForNamn = "P",
-                EfterNamn = "Nilsson"
-            };
+            PersonViewModelSave PVmodel = new PersonViewModelSave();
+
+            PVmodel.PersonNummer = "12345";
+            PVmodel.ForNamn = "P";
+            PVmodel.EfterNamn = "Nilsson";
 
             Assert.False( pv.CheckCreateValues(PVmodel, ref str) );
 
@@ -80,15 +78,14 @@ namespace Test.PersonSvc
             ValueUtils vu = new ValueUtils();
             PersonValidation pv = new PersonValidation(vu);
 
-            PersonViewModel PVmodel = new PersonViewModel();
+           
             String str = "";
 
-            PVmodel.Person = new Person()
-            {
-                PersonNummer = String.Empty,
-                ForNamn = "P",
-                EfterNamn = "Nilsson"
-            };
+            PersonViewModelSave PVmodel = new PersonViewModelSave();
+
+            PVmodel.PersonNummer = "12345";
+            PVmodel.ForNamn = "Per";
+            PVmodel.EfterNamn = "Nilsson";
 
             Assert.False( pv.CheckCreateValues(PVmodel, ref str) );
 

@@ -42,7 +42,7 @@ namespace AdressSvc.BusinessRules
         {
             Response<AdressViewModel> result = new Response<AdressViewModel>();
 
-            var adress = ac.GetByPersonId(persnr);
+            var adress = ac.GetByPersonId(persnr,false);
             result.result = adress;
             result.success = "true";
             result.message = "Ok";
