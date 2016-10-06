@@ -84,7 +84,7 @@ namespace Test.PersonSvc.Controllers
                 PersonCreateUpdateDeleteFake crudFake = new PersonCreateUpdateDeleteFake();
                 PersonController controller = new PersonController(context, crudFake);
 
-                var response = controller.GetByPersnr("min", "pse,", 12345);
+                var response = controller.GetByPersnr("min", "pse", 12345);
 
                 Assert.True(response.success == "true");
 

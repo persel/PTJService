@@ -42,7 +42,7 @@ namespace Test.PersonSvc
 
             PersonViewModelSave PVmodel = new PersonViewModelSave();
 
-            PVmodel.PersonNummer = "12345";
+            PVmodel.PersonNummer = "12";
             PVmodel.ForNamn = "Per";
             PVmodel.EfterNamn = "Nilsson";
 
@@ -73,7 +73,7 @@ namespace Test.PersonSvc
         }
 
         [Fact]
-        public void CheckCreateValuesTestNotMissingValues()
+        public void CheckCreateValuesTestNotMissing()
         {
             ValueUtils vu = new ValueUtils();
             PersonValidation pv = new PersonValidation(vu);
@@ -87,7 +87,7 @@ namespace Test.PersonSvc
             PVmodel.ForNamn = "Per";
             PVmodel.EfterNamn = "Nilsson";
 
-            Assert.False( pv.CheckCreateValues(PVmodel, ref str) );
+            Assert.True( pv.CheckCreateValues(PVmodel, ref str) );
 
         }
 
