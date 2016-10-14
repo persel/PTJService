@@ -10,7 +10,7 @@ namespace PTJ.DataLayer.Models
     {
         [Key]
         public long Id { get; set; }
-        public long Adress_Fkid { get; set; }
+        public long AdressFkid { get; set; }
         public string AdressRad1 { get; set; }
         public string AdressRad2 { get; set; }
         public string AdressRad3 { get; set; }

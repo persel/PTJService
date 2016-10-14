@@ -55,9 +55,9 @@ namespace PTJ.DataLayer.Models
 
         //        entity.Property(e => e.Id).ValueGeneratedNever();
 
-        //        entity.Property(e => e.AdressTypFkid).HasColumnName("AdressTyp_FKID");
+        //        entity.Property(e => e.AdressTypFkid).HasColumnName("AdressTypFkid");
 
-        //        entity.Property(e => e.AdressVariantFkid).HasColumnName("AdressVariant_FKID");
+        //        entity.Property(e => e.AdressVariantFkid).HasColumnName("AdressVariantFkid");
 
         //        entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
 
