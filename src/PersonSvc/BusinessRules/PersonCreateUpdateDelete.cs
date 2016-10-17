@@ -44,7 +44,7 @@ namespace PersonSvc.BusinessRules
 
         public bool CreatePerson(PersonViewModelSave model, ref string errorMsg)
         {
-            var transaction = db.Database.BeginTransaction();
+            //var transaction = db.Database.BeginTransaction();
 
             try
             {
@@ -61,7 +61,7 @@ namespace PersonSvc.BusinessRules
                     newPerson.MellanNamn = model.MellanNamn;
                     newPerson.EfterNamn = model.EfterNamn;
                     newPerson.SkapadDatum = DateTime.Now;
-                    newPerson.UppdateradAv = "mah";// model.UppdateradAvAlias;
+                    newPerson.UppdateradAv = model.UppdateradAvAlias;
 
                     db.Person.Add(newPerson);
                     db.SaveChanges();
@@ -70,77 +70,77 @@ namespace PersonSvc.BusinessRules
                     var dbPersonId = newPerson.Id;
 
                     //Save person type
-                    if (model.PersonAnnanPerson)
-                    {
-                        PersonAnnanPerson newAnnanPerson = new PersonAnnanPerson();
+                    //if (model.PersonAnnanPerson)
+                    //{
+                    //    PersonAnnanPerson newAnnanPerson = new PersonAnnanPerson();
 
-                        newAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
-                        newAnnanPerson.PersonFkid = newPerson.Id;
-                        newAnnanPerson.AnnanPersonFkid = 9999;
-                        newAnnanPerson.SkapadDatum = DateTime.Now;
-                        newAnnanPerson.UpdateradAv = "mah";
+                    //    newAnnanPerson.Id = dbUtils.GetNewDbId("PersonAnnanPerson");
+                    //    newAnnanPerson.PersonFkid = newPerson.Id;
+                    //    newAnnanPerson.AnnanPersonFkid = 9999;
+                    //    newAnnanPerson.SkapadDatum = DateTime.Now;
+                    //    newAnnanPerson.UpdateradAv = "mah";
 
-                        db.PersonAnnanPerson.Add(newAnnanPerson);
-                        db.SaveChanges();
-                    }
+                    //    db.PersonAnnanPerson.Add(newAnnanPerson);
+                    //    db.SaveChanges();
+                    //}
 
-                    if (model.PersonAnstalld)
-                    {
-                        PersonAnstalld newPersonAnstalld = new PersonAnstalld();
+                    //if (model.PersonAnstalld)
+                    //{
+                    //    PersonAnstalld newPersonAnstalld = new PersonAnstalld();
 
-                        newPersonAnstalld.PersonFkid = newPerson.Id;
-                        newPersonAnstalld.Id = dbUtils.GetNewDbId("PersonAnstalld");
-                        newPersonAnstalld.AnstalldFkid = 9999;
-                        newPersonAnstalld.SkapadDatum = DateTime.Now;
-                        newPersonAnstalld.UpdateradAv = "mah";
-                        db.PersonAnstalld.Add(newPersonAnstalld);
-                        db.SaveChanges();
-                    }
+                    //    newPersonAnstalld.PersonFkid = newPerson.Id;
+                    //    newPersonAnstalld.Id = dbUtils.GetNewDbId("PersonAnstalld");
+                    //    newPersonAnstalld.AnstalldFkid = 9999;
+                    //    newPersonAnstalld.SkapadDatum = DateTime.Now;
+                    //    newPersonAnstalld.UpdateradAv = "mah";
+                    //    db.PersonAnstalld.Add(newPersonAnstalld);
+                    //    db.SaveChanges();
+                    //}
 
-                    if (model.PersonKonsult)
-                    {
-                        PersonKonsult newPersonKonsult = new PersonKonsult();
-                        newPersonKonsult.PersonFkid = newPerson.Id;
-                        newPersonKonsult.Id = dbUtils.GetNewDbId("PersonKonsult");
-                        newPersonKonsult.KonsultFkid = 9999;
-                        newPersonKonsult.UpdateradAv = "mah";
-                        newPersonKonsult.SkapadDatum = DateTime.Now;
-                        newPersonKonsult.UpdateradDatum = DateTime.Now;
+                    //if (model.PersonKonsult)
+                    //{
+                    //    PersonKonsult newPersonKonsult = new PersonKonsult();
+                    //    newPersonKonsult.PersonFkid = newPerson.Id;
+                    //    newPersonKonsult.Id = dbUtils.GetNewDbId("PersonKonsult");
+                    //    newPersonKonsult.KonsultFkid = 9999;
+                    //    newPersonKonsult.UpdateradAv = "mah";
+                    //    newPersonKonsult.SkapadDatum = DateTime.Now;
+                    //    newPersonKonsult.UpdateradDatum = DateTime.Now;
 
-                        db.PersonKonsult.Add(newPersonKonsult);
-                        db.SaveChanges();
-                    }
+                    //    db.PersonKonsult.Add(newPersonKonsult);
+                    //    db.SaveChanges();
+                    //}
 
-                    if (model.PersonPatient)
-                    {
-                        PersonPatient newPersonPatient = new PersonPatient();
+                    //if (model.PersonPatient)
+                    //{
+                    //    PersonPatient newPersonPatient = new PersonPatient();
 
-                        newPersonPatient.PersonFkid = newPerson.Id;
-                        newPersonPatient.Id = dbUtils.GetNewDbId("PersonPatient");
-                        newPersonPatient.PatientFkid = 9999;
-                        newPersonPatient.UpdateradAv = "mah";
-                        newPersonPatient.SkapadDatum = DateTime.Now;
+                    //    newPersonPatient.PersonFkid = newPerson.Id;
+                    //    newPersonPatient.Id = dbUtils.GetNewDbId("PersonPatient");
+                    //    newPersonPatient.PatientFkid = 9999;
+                    //    newPersonPatient.UpdateradAv = "mah";
+                    //    newPersonPatient.SkapadDatum = DateTime.Now;
 
-                        db.PersonPatient.Add(newPersonPatient);
-                        db.SaveChanges();
-                    }
+                    //    db.PersonPatient.Add(newPersonPatient);
+                    //    db.SaveChanges();
+                    //}
 
-                    if (model.PersonSjukHalsovardsPersonal)
-                    {
-                        PersonSjukHalsovardsPersonal newPersonSjukHalsovardsPersonal = new PersonSjukHalsovardsPersonal();
+                    //if (model.PersonSjukHalsovardsPersonal)
+                    //{
+                    //    PersonSjukHalsovardsPersonal newPersonSjukHalsovardsPersonal = new PersonSjukHalsovardsPersonal();
 
-                        newPersonSjukHalsovardsPersonal.PersonFkid = newPerson.Id;
-                        newPersonSjukHalsovardsPersonal.Id = dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
-                        newPersonSjukHalsovardsPersonal.SjukHalsovardsPersonalFkid = 9999;
-                        newPersonSjukHalsovardsPersonal.UpdateradAv = "mah";
-                        newPersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
-                        newPersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
+                    //    newPersonSjukHalsovardsPersonal.PersonFkid = newPerson.Id;
+                    //    newPersonSjukHalsovardsPersonal.Id = dbUtils.GetNewDbId("PersonSjukHalsovardsPersonal");
+                    //    newPersonSjukHalsovardsPersonal.SjukHalsovardsPersonalFkid = 9999;
+                    //    newPersonSjukHalsovardsPersonal.UpdateradAv = "mah";
+                    //    newPersonSjukHalsovardsPersonal.SkapadDatum = DateTime.Now;
+                    //    newPersonSjukHalsovardsPersonal.UpdateradDatum = DateTime.Now;
 
-                        db.PersonSjukHalsovardsPersonal.Add(newPersonSjukHalsovardsPersonal);
-                        db.SaveChanges();
-                    }
+                    //    db.PersonSjukHalsovardsPersonal.Add(newPersonSjukHalsovardsPersonal);
+                    //    db.SaveChanges();
+                    //}
                 }
-                transaction.Commit();
+                //transaction.Commit();
 
                 return true;
 

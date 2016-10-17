@@ -7,27 +7,7 @@ namespace PTJ.DataLayer.Models
 
     public interface IApplicationDbContext
     {
-        DbSet<Person> Person { get; set; }
-
-        DbSet<Adress> Adress { get; set; }
-        DbSet<AdressTyp> AdressTyp { get; set; }
-        DbSet<AdressVariant> AdressVariant { get; set; }
-        DbSet<GatuAdress> GatuAdress { get; set; }
-        DbSet<Mail> Mail { get; set; }
-        DbSet<Organisation> Organisation { get; set; }
-        DbSet<OrganisationAdress> OrganisationAdress { get; set; }
-       
-        DbSet<PersonAdress> PersonAdress { get; set; }
-        DbSet<PersonAnnanPerson> PersonAnnanPerson { get; set; }
-        DbSet<PersonAnstalld> PersonAnstalld { get; set; }
-        DbSet<PersonKonsult> PersonKonsult { get; set; }
-        DbSet<PersonPatient> PersonPatient { get; set; }
-        DbSet<PersonSjukHalsovardsPersonal> PersonSjukHalsovardsPersonal { get; set; }
-        DbSet<Telefon> Telefon { get; set; }
-        //object Database { get; set; }
-
-        int SaveChanges();
-     
+      
     }
 
     public class ModelDbContext : DbContext//, IApplicationDbContext
@@ -41,35 +21,7 @@ namespace PTJ.DataLayer.Models
             : base(options)
         { }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Adress>(entity =>
-        //    {
-        //        entity.ToTable("Adress", "Adress");
-
-        //        entity.HasIndex(e => e.AdressTypFkid)
-        //            .HasName("IXFK_Adress_AdressTyp_02");
-
-        //        entity.HasIndex(e => e.AdressVariantFkid)
-        //            .HasName("IXFK_Adress_AdressVariant");
-
-        //        entity.Property(e => e.Id).ValueGeneratedNever();
-
-        //        entity.Property(e => e.AdressTypFkid).HasColumnName("AdressTyp_FKID");
-
-        //        entity.Property(e => e.AdressVariantFkid).HasColumnName("AdressVariant_FKID");
-
-        //        entity.Property(e => e.SkapadDatum).HasColumnType("datetime");
-
-        //        entity.Property(e => e.UpdateradAv)
-        //            .IsRequired()
-        //            .HasMaxLength(100);
-
-        //        entity.Property(e => e.UpdateradDatum).HasColumnType("datetime");
-        //    });
-
-
-        //}
+        
 
         public virtual DbSet<Adress> Adress { get; set; }
         public virtual DbSet<AdressTyp> AdressTyp { get; set; }
@@ -86,6 +38,18 @@ namespace PTJ.DataLayer.Models
         public virtual DbSet<PersonPatient> PersonPatient { get; set; }
         public virtual DbSet<PersonSjukHalsovardsPersonal> PersonSjukHalsovardsPersonal { get; set; }
         public virtual DbSet<Telefon> Telefon { get; set; }
+
+        public virtual DbSet<AnstalldAvtal> AnstalldAvtal { get; set; }
+
+        public virtual DbSet<Anstalld> Anstalld { get; set; }
+
+        public virtual DbSet<Avtal> Avtal { get; set; }
+
+        public virtual DbSet<Konsult> Konsult { get; set; }
+
+        public virtual DbSet<AvtalResultatEnhet> AvtalResultatEnhet { get; set; }
+
+        public virtual DbSet<ResultatEnhet> ResultatEnhet { get; set; }
     }
 
   

@@ -250,6 +250,8 @@ ModelManifest.xml
 /src/Organisation/Properties/PublishProfiles/ptjdevservice - FTP.pubxml.user
 /src/Organisation/Properties/PublishProfiles/ptjdevservice - Web Deploy.pubxml
 /script-20160907.sql
+/script-20160914.sql
+/script-20160917.sql
 /UnitTesting
 /src/Person
 /src/Organisation

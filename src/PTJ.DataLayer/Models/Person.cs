@@ -7,16 +7,7 @@ namespace PTJ.DataLayer.Models
     [Table("Person", Schema = "Person")]
     public partial class Person
     {
-        //public Person()
-        //{
-        //    PersonAdress = new HashSet<PersonAdress>();
-        //    PersonAnnanPerson = new HashSet<PersonAnnanPerson>();
-        //    PersonAnstalld = new HashSet<PersonAnstalld>();
-        //    PersonKonsult = new HashSet<PersonKonsult>();
-        //    PersonPatient = new HashSet<PersonPatient>();
-        //    PersonSjukHälsovårdsPersonal = new HashSet<PersonSjukHalsovardsPersonal>();
-        //}
-
+     
         [Key]
         public long Id { get; set; }
         public string ForNamn { get; set; }
@@ -27,11 +18,5 @@ namespace PTJ.DataLayer.Models
         public DateTime? UppdateradDatum { get; set; }
         public string UppdateradAv { get; set; }
 
-        //public virtual ICollection<PersonAdress> PersonAdress { get; set; }
-        //public virtual ICollection<PersonAnnanPerson> PersonAnnanPerson { get; set; }
-        //public virtual ICollection<PersonAnstalld> PersonAnstalld { get; set; }
-        //public virtual ICollection<PersonKonsult> PersonKonsult { get; set; }
-        //public virtual ICollection<PersonPatient> PersonPatient { get; set; }
-        //public virtual ICollection<PersonSjukHalsovardsPersonal> PersonSjukHälsovårdsPersonal { get; set; }
     }
 }

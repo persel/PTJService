@@ -77,6 +77,7 @@ namespace PersonSvc.Controllers
         [HttpGet("GetByPersnr")]
         public Response<PersonAdressViewModel> GetByPersnr([RequiredFromQuery]string application, [RequiredFromQuery]string username, [RequiredFromQuery]long persnr)
         {
+        
             if (user.IsAuthorised(username))
             {
                 bool canOnlyReadWorkInformation = user.OnlyReadWorkInformation(username);
