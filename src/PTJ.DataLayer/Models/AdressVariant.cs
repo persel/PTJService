@@ -16,7 +16,7 @@ namespace PTJ.DataLayer.Models
         public long Id { get; set; }
 
         [ForeignKey("Id")]
-        public long AdressTyp_Fkid { get; set; }
+        public long AdressTypFkid { get; set; }
         public string Variant { get; set; }
         public DateTime SkapadDatum { get; set; }
         public DateTime? UpdateradDatum { get; set; }

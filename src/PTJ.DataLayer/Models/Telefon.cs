@@ -8,7 +8,7 @@ namespace PTJ.DataLayer.Models
     public partial class Telefon
     {
         public long Id { get; set; }
-        public long Adress_Fkid { get; set; }
+        public long AdressFkid { get; set; }
         public decimal TelefonNummer { get; set; }
         public DateTime SkapadDatum { get; set; }
         public DateTime? UpdateradDatum { get; set; }

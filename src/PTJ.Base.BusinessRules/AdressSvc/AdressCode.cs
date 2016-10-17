@@ -33,7 +33,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                     model.Id = id;
 
                     var streetAdrDb = (from s in db.GatuAdress
-                                       where s.Adress_Fkid == id
+                                       where s.AdressFkid == id
                                        select s).FirstOrDefault();
 
                     if (streetAdrDb != null)
@@ -44,7 +44,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                     }
 
                     var mailAdrDb = (from m in db.Mail
-                                     where m.Adress_Fkid == id
+                                     where m.AdressFkid == id
                                      select m).FirstOrDefault();
 
                     if (mailAdrDb != null)
@@ -54,7 +54,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                     }
 
                     var phoneDb = (from p in db.Telefon
-                                   where p.Adress_Fkid == id
+                                   where p.AdressFkid == id
                                    select p).FirstOrDefault();
 
                     if (phoneDb != null)
@@ -63,7 +63,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                     }
 
                     var variantDb = (from v in db.AdressVariant
-                                     where v.Id == adrDb.AdressVariant_Fkid
+                                     where v.Id == adrDb.AdressVariantFkid
                                      select v).FirstOrDefault();
 
 
@@ -74,7 +74,7 @@ namespace PTJ.Base.BusinessRules.AdressSvc
                     }
 
                     var typDb = (from v in db.AdressTyp
-                                 where v.Id == adrDb.AdressTyp_Fkid
+                                 where v.Id == adrDb.AdressTypFkid
                                  select v).FirstOrDefault();
 
                     if (typDb != null)
@@ -139,9 +139,9 @@ namespace PTJ.Base.BusinessRules.AdressSvc
 
 
             var personAdressId = (from pa in db.PersonAdress
-                                  join a in db.Adress on pa.Adress_Fkid equals a.Id 
-                                where pa.Person_Fkid == persnr && types.Contains(a.AdressVariant_Fkid) 
-                                select pa.Adress_Fkid).ToList();
+                                  join a in db.Adress on pa.AdressFkid equals a.Id 
+                                where pa.PersonFkid == persnr && types.Contains(a.AdressVariantFkid) 
+                                select pa.AdressFkid).ToList();
 
             if ( personAdressId != null )
             {

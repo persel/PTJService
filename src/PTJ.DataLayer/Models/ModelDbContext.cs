@@ -21,7 +21,6 @@ namespace PTJ.DataLayer.Models
             : base(options)
         { }
 
-        
 
         public virtual DbSet<Adress> Adress { get; set; }
         public virtual DbSet<AdressTyp> AdressTyp { get; set; }

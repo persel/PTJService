@@ -14,7 +14,7 @@ namespace PTJ.DataLayer.Models
         public int OrganisationFkid { get; set; }
 
      
-        public int Adress_Fkid { get; set; }
+        public int AdressFkid { get; set; }
         public string UpdateradAv { get; set; }
         public DateTime? SkapadDatum { get; set; }
         public DateTime? UpdateradDatum { get; set; }
