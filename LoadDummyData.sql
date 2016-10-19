@@ -127,7 +127,7 @@ VALUES(1,1,'Storvägen 11',84019,'Färila','Sverige',GETUTCDATE(),'DBO')
 INSERT INTO [Adress].[Adress]([Id],[AdressTypFKID],[AdressVariantFKID],[SkapadDatum],[UpdateradAv])
 VALUES(2,1,2,GETUTCDATE(),'DBO')
 INSERT INTO [Adress].[GatuAdress]([Id],[AdressFKID],[AdressRad1],[Postnummer],[Stad],[Land],[SkapadDatum],[UpdateradAv])
-VALUES(2,3,'Drottningvägen 23',82240,'Järvsö','Sverige',GETUTCDATE(),'DBO')
+VALUES(2,2,'Drottningvägen 23',82240,'Järvsö','Sverige',GETUTCDATE(),'DBO')
 
 /*Mail Arbete*/
 INSERT INTO [Adress].[Adress]([Id],[AdressTypFKID],[AdressVariantFKID],[SkapadDatum],[UpdateradAv])
