@@ -30,7 +30,7 @@ namespace PTJ.Security.Code
 
         public bool IsAuthorised(string username)
         {
-            return (username == "pse" || username == "test") ? true : false; 
+            return (username == "pse" || username == "test" || username == "mah") ? true : false; 
         }
 
         public bool IsUserAdmin()

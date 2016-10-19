@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using PTJ.DataLayer.Models;
 using PTJ.Message;
 using PersonSvc.BusinessRules;
 using PersonSvc.BusinessRules.Interfaces;
 using PTJ.Base.BusinessRules.PersonSvc;
-using PTJ.Base.BusinessRules.Code;
-using PTJ.Base.BusinessRules.Interfaces;
+
 using PersonSvc.BusinessRules.Utils;
 using PTJ.Security.Code;
 using PTJ.Security.Interfaces;
@@ -28,12 +25,12 @@ namespace PersonSvc.Controllers
     [Route("api/[controller]")]
     public class PersonController : Controller
     {
-        private IPerson pc;
-        private IPersonCreateUpdateDelete crud;
-        private IBackend backend;
-        private IPersonValidation validate;
-        private IValueUtils valueUtils;
-        private IPtjUser user;
+        private readonly IPerson pc;
+        private readonly IPersonCreateUpdateDelete crud;
+        private readonly IBackend backend;
+        private readonly IPersonValidation validate;
+        private readonly IValueUtils valueUtils;
+        private readonly IPtjUser user;
         private readonly ModelDbContext db;
 
 

@@ -124,32 +124,29 @@ namespace PTJ.Base.BusinessRules.AdressSvc
 
         public List<AdressViewModel> GetByPersonId(long persnr, bool? workInformationOnly)
         {
-            List<AdressViewModel> lst = new List<AdressViewModel>();
+            var lst = new List<AdressViewModel>();
 
-            List<long> types;
+            //List<long> types;
 
-            if (workInformationOnly.Value)
-            {
-                types = new List<long> {2,7,9,11};
-            }
-            else
-            {
-                types = new List<long> {1,2,3,4,5,6,7,8,9,10,11,12};
-            }
+            //if (workInformationOnly != null && workInformationOnly.Value)
+            //{
+            //    types = new List<long> {2,7,9,11};
+            //}
+            //else
+            //{
+            //    types = new List<long> {1,2,3,4,5,6,7,8,9,10,11,12};
+            //}
 
 
             var personAdressId = (from pa in db.PersonAdress
-                                  join a in db.Adress on pa.AdressFkid equals a.Id 
-                                where pa.PersonFkid == persnr && types.Contains(a.AdressVariantFkid) 
+                                  join a in db.Adress on pa.AdressFkid equals a.Id
+                                  join p in db.Person on pa.PersonFkid equals p.Id 
+                                where p.PersonNummer == persnr.ToString() //&& types.Contains(a.AdressVariantFkid) 
                                 select pa.AdressFkid).ToList();
 
             if ( personAdressId != null )
             {
-                foreach (var item in personAdressId)
-                {
-                    AdressViewModel av = this.GetByAdressId(item);
-                    lst.Add(av);
-                }
+                lst.AddRange(personAdressId.Select(this.GetByAdressId));
             }
 
             return lst;
