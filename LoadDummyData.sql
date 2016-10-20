@@ -1,6 +1,9 @@
 USE [LocalDev_Webservice]
-GO
 
+GO
+--ALTER TABLE [Adress].[Adress]  NOCHECK CONSTRAINT FK_Adress_AdressTyp_02
+--ALTER TABLE [Adress].[Adress]  NOCHECK CONSTRAINT FK_Adress_AdressVariant
+--GO
 TRUNCATE TABLE [LocalDev_Webservice].[Person].[Person]
 TRUNCATE TABLE [LocalDev_Webservice].[Person].[Anstalld]
 TRUNCATE TABLE [LocalDev_Webservice].[Person].[Konsult]
@@ -17,10 +20,13 @@ TRUNCATE TABLE [LocalDev_Webservice].[Adress].[Mail]
 TRUNCATE TABLE [LocalDev_Webservice].[Adress].[Telefon]
 TRUNCATE TABLE [LocalDev_Webservice].[Adress].[PersonAdress]
 
-/*
-TRUNCATE TABLE [LocalDev_Webservice].[Adress].[AdressTyp]
-TRUNCATE TABLE [LocalDev_Webservice].[Adress].[AdressVariant]
-*/
+
+--ALTER TABLE [Adress].[AdressVariant]  NOCHECK CONSTRAINT [FK_AdressVariant_AdressTyp]
+
+--TRUNCATE TABLE [LocalDev_Webservice].[Adress].[AdressTyp]
+
+--TRUNCATE TABLE [LocalDev_Webservice].[Adress].[AdressVariant]
+
 
 
 /**
@@ -181,49 +187,54 @@ VALUES(11,5,2,'DBO',GETUTCDATE())
 
 
 
+if not exists (select id from [Adress].[AdressTyp])
+ BEGIN
+	INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(1,'GatuAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(2,'MailAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(3,'Telefon',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(4,'Facebook',GETUTCDATE(),GETUTCDATE(),'DBO')
+ END
 
-
-INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(1,'GatuAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(2,'MailAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(3,'Telefon',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressTyp]([Id],[Typ],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(4,'Facebook',GETUTCDATE(),GETUTCDATE(),'DBO')
-
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(1,1,'Folkbokföringsadress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(2,1,'Adress Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(3,1,'LeveransAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(4,1,'FaktureringsAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(5,1,'Adressens Adress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(6,1,'Tomte Adress',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(7,2,'MailAdress Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(8,2,'Mailadress Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(9,3,'Mobil Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(10,3,'Mobil Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(11,3,'Telefon Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(12,3,'Telefon Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(13,4,'Facebook Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
-INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
-VALUES(14,4,'Facebook Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
-
+if not exists (select id from [Adress].[AdressVariant])
+BEGIN
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(1,1,'Folkbokföringsadress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(2,1,'Adress Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(3,1,'LeveransAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(4,1,'FaktureringsAdress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(5,1,'Adressens Adress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(6,1,'Tomte Adress',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(7,2,'MailAdress Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(8,2,'Mailadress Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(9,3,'Mobil Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(10,3,'Mobil Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(11,3,'Telefon Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(12,3,'Telefon Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(13,4,'Facebook Privat',GETUTCDATE(),GETUTCDATE(),'DBO')
+	INSERT INTO [Adress].[AdressVariant]([Id],[AdressTypFKID],[Variant],[SkapadDatum],[UpdateradDatum],[UpdateradAv])
+	VALUES(14,4,'Facebook Arbete',GETUTCDATE(),GETUTCDATE(),'DBO')
+END
 
 
 
 GO
 
+EXEC sp_msforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 
+GO
