@@ -7,7 +7,6 @@ namespace PersonSvc.ViewModels
 {
     public class PersonViewModelSave
     {
-
         public long Id { get; set; }
         public string ForNamn { get; set; }
         public string MellanNamn { get; set; }
